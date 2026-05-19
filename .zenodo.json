@@ -1,0 +1,28 @@
+{
+  "title": "Lightweight Stacked Ensemble for AI-Enabled 5G Network Intrusion Detection: A Latency-Accuracy Pareto Analysis (ATC 2026 artefact)",
+  "description": "Reviewer-runnable code, configurations, and aggregation pipeline for the ATC 2026 submission on a heterogeneous shallow stacked ensemble for 5G-NIDD multi-class intrusion detection.",
+  "creators": [
+    {
+      "name": "Anonymised, Pending peer review",
+      "affiliation": "Pending peer review"
+    }
+  ],
+  "access_right": "open",
+  "license": "MIT",
+  "upload_type": "software",
+  "keywords": [
+    "5G",
+    "network intrusion detection",
+    "stacked ensemble",
+    "latency-accuracy tradeoff",
+    "5G-NIDD",
+    "lightweight ML"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://arxiv.org/abs/2212.01298",
+      "relation": "cites",
+      "scheme": "url"
+    }
+  ]
+}

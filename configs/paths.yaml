@@ -1,0 +1,23 @@
+# Paths config for ATC 2026 conference paper
+# Resolved at runtime depending on hostname (Windows local vs server mllab63)
+
+local:
+  workspace: "E:/phase3/scripts/side_projects/atc_2026_conf"
+  master_parquet: "E:/project_data/5g_nidd/master_5g_nidd.parquet"
+  classes_json: "E:/project_data/5g_nidd/master_5g_nidd.classes.json"
+  data_out: "E:/phase3/scripts/side_projects/atc_2026_conf/data"
+  results: "E:/phase3/scripts/side_projects/atc_2026_conf/results"
+
+server:
+  workspace: "/home/apps/papers/atc_2026_conf"
+  master_parquet: "/home/apps/papers/jisa_5g_bonus/data/master_5g_nidd.parquet"
+  classes_json: "/home/apps/papers/jisa_5g_bonus/data/master_5g_nidd.classes.json"
+  data_out: "/home/apps/papers/atc_2026_conf/data"
+  results: "/home/apps/papers/atc_2026_conf/results"
+  logs: "/home/apps/papers/atc_2026_conf/logs"
+  venv: "/home/apps/venv"
+
+artifacts:
+  metrics_dir: "results/metrics"
+  figures_dir: "results/figures"
+  tables_dir: "results/tables"

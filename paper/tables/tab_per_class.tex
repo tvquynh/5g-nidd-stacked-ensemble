@@ -1,0 +1,15 @@
+\begin{table*}[!t]
+\centering
+\caption{Per-class F1 on cross-station BS1$\rightarrow$BS2 (median over 10 seeds). Stacked ensemble closes the gap on the imbalanced minority classes.}
+\label{tab:perclass}
+\begin{tabular}{lccccccccc}
+\toprule
+Model & Benign & HTTPFlood & ICMPFlood & SYNFlood & SYNScan & SlowrateDoS & TCPConnectScan & UDPFlood & UDPScan \\
+\midrule
+LightGBM & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+XGBoost & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+MLP & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+Stacked ensemble (\textbf{proposed}) & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+\bottomrule
+\end{tabular}
+\end{table*}

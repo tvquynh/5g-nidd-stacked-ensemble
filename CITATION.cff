@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+title: "Lightweight Stacked Ensemble for AI-Enabled 5G Network Intrusion Detection: A Latency-Accuracy Pareto Analysis"
+message: "If you use this software, please cite both the article and the artefact."
+authors:
+  - family-names: Anonymised
+    given-names: Pending peer review
+type: software
+license: MIT
+repository-code: "https://github.com/<placeholder>"
+abstract: >-
+  Reviewer-runnable artefact for the ATC 2026 submission. Provides a
+  heterogeneous shallow stacked ensemble (LightGBM + XGBoost + MLP -> logistic
+  regression meta-learner) for multi-class 5G network intrusion detection on
+  the public 5G-NIDD dataset, together with a latency-accuracy Pareto
+  analysis and a deployment recommendation table.

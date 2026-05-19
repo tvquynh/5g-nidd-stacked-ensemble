@@ -1,0 +1,27 @@
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+
+# results are reproducible from code; excluded from git, included in the
+# Zenodo / submission zip via build_submission.sh
+results/metrics/*.json
+results/figures/*.pdf
+results/figures/*.png
+results/tables/*.tex
+results/*.csv
+results/*.parquet
+logs/
+
+# editor / IDE
+.idea/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db

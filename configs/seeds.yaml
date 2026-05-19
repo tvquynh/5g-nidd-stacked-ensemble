@@ -1,0 +1,4 @@
+# Project standard seeds (project_seeds_convention.md)
+seeds: [42, 123, 456, 789, 1011, 2026, 3141, 4242, 5555, 6789]
+prototype_seeds: [42, 123]
+smoke_seeds: [42]

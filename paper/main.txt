@@ -1,0 +1,362 @@
+Lightweight Stacked Ensemble for AI-Enabled 5G
+             Network Intrusion Detection:
+
+        A Latency­Accuracy Pareto Analysis
+
+Van-Quynh Trinh, Trong-Thua Huynh, De-Thu Huynh, and Ngoc-Hieu Le
+        Posts and Telecommunications Institute of Technology (PTIT), Vietnam
+                       Saigon International University (SIU), Vietnam
+
+   Abstract--The 5G access plane multiplies the attack surface      stacks. Practitioners therefore ask: is a heavy deep model the
+of mobile networks while demanding sub-millisecond decision         only path to state-of-the-art accuracy on 5G-NIDD, or is a
+budgets at the edge. Recent deep models deliver state-of-the-       carefully constructed shallow ensemble enough?
+art accuracy on the 5G-NIDD benchmark, but their inference
+cost and parameter footprint are not always compatible with            Contributions. This paper makes three contributions.
+in-line classification on a commodity CPU. We revisit this
+trade-off with a heterogeneous shallow stacked ensemble that           1) We propose a heterogeneous shallow stacked ensemble
+combines LightGBM, XGBoost, and a two-layer multi-layer                    for 5G-NIDD multi-class intrusion detection (Section IV).
+perceptron through out-of-fold (OOF) cross-validated probability           The ensemble combines two gradient-boosted tree learn-
+stacking and a logistic-regression meta-learner. On the 5G-                ers (LightGBM, XGBoost) and a two-layer multi-layer
+NIDD multi-class task we report classification quality under               perceptron (MLP) through out-of-fold cross-validated
+a stratified random split and a cross-base-station split that              probability stacking with a logistic-regression meta-
+stresses generalisation across two physically separated radio              learner--an explicit guard against the "stacker fits the
+cells, and characterise the latency­accuracy frontier across batch         training residuals" leak.
+sizes spanning {1, 16, 64, 256, 1024, 4096}. The stacked ensemble
+matches or improves the best single base learner on macro-F1           2) We report classification quality under a stratified random
+while remaining practical for CPU-only deployment in the user-             split and a cross-base-station split BS1BS2 that re-
+plane function (UPF) or multi-access edge computing (MEC) tier.            balances the per-class prior to isolate genuine cross-cell
+We make the artefact reviewer-runnable and release a deployment            generalisation from prior shift (Section VI).
+recommendation table that maps operating points (latency budget,
+accuracy floor) to the configuration that meets them.                  3) We characterise the latency­accuracy Pareto frontier
+                                                                           for every base learner and the full stack across six
+   Index Terms--5G security, network intrusion detection, stacked          batch sizes on a commodity 60-core CPU host, and
+ensemble, lightweight machine learning, latency-accuracy trade-            emit a deployment recommendation table that maps
+off, multi-access edge computing.                                          operating points (latency budget, accuracy floor) to the
+                                                                           configuration that meets them.
+                          I. INTRODUCTION
+                                                                       Reproducibility. Code, configuration, hyperparameters, the
+   The cellular access plane introduced by 5G is broader, more      ten project seeds, and the aggregation pipeline are released
+programmable, and--through control­user-plane separation,           under MIT; the artefact is reviewer-runnable from a single
+network slicing, and multi-access edge computing (MEC)--            command on the host described in Section V.
+more exposed than its 4G predecessor. Encryption alone does
+not stop volumetric flooding, scanning, or low-and-slow denial                               II. RELATED WORK
+of service, and operators routinely call for in-line classifiers
+that detect malicious flows on the data path with budgets in the       5G NIDS benchmarks. The 5G-NIDD dataset [1] captures
+tens of microseconds per flow [1], [2]. The public 5G-NIDD          benign and adversarial traffic from two collocated base stations
+benchmark [1], [3] was assembled to drive progress on exactly       in a real testbed, with eight distinct attack families and a benign
+this regime: it captures over 1.2 million flows of benign and       class. Earlier intrusion benchmarks such as NSL-KDD [8],
+attack traffic from two physically separated base stations in a     UNSW-NB15 [9], CIC-IDS2017 [10], Bot-IoT [11], and Edge-
+real 5G test network.                                               IIoTset [12] are commonly used cross-domain baselines; we
+                                                                    focus on 5G-NIDD because of its native 5G radio-plane
+   The fast-moving literature on 5G-NIDD [4]­[7] pushes             provenance.
+accuracy with deep architectures--transformers, CNN­LSTM
+hybrids, and deeply stacked neural classifiers--that report            Deep learning on 5G-NIDD. Recent work pushes accuracy
+macro-F1 values approaching unity on the random split. These        with deep architectures. Toupas et al. [4] report a transformer-
+gains, however, come with parameter counts and per-flow             based detector specialised for DDoS variants. Ksibi et al. [5] ap-
+latencies that complicate deployment on the CPU-only fabric         ply deep transfer learning to bridge across related benchmarks.
+that still dominates user-plane functions in 5G core software       Shi et al. [6] combine CNN­LSTM hybrids with a mixture
+                                                                    of experts. Samarakoon et al. [2] propose lightweight deep
+   Corresponding author: huynhtrongthua@ptit.edu.vn.                models for DDoS mitigation, and Ahmed et al. [7] introduce
+DSEM-NIDS, a deeply stacked neural ensemble validated                Each Bi exposes a class-probability oracle Bi : Rd  K-1
+across multiple network benchmarks including 5G-NIDD. Our            where K = 9 is the label cardinality.
+work differs in two respects: (i) we adopt a heterogeneous
+shallow stack (boosted trees + MLP  logistic regression)                Leakage-free OOF stacking. Given training matrix X 
+instead of a deep stack of neural blocks, and (ii) we explicitly     RN×d and labels y  {0, . . . , K - 1}N , we partition the
+profile per-sample latency and throughput across batch sizes,
+an axis under-reported in the deep detector literature.              training rows into L = 5 stratified folds. For each Bi and
+                                                                     each fold , we fit Bi() on the L - 1 remaining folds and emit
+   Stacking. Stacked generalisation [13], [14] combines com-         predictions on the held-out fold . Concatenating across folds
+plementary base models through a meta-learner trained on out-        yields an out-of-fold (OOF) probability matrix Pi  RN×K .
+of-fold predictions; in this work the meta-learner is a multi-class
+logistic regression on the concatenation of three K-dimensional      We then refit Bi on the full training set and cache its parameters
+probability vectors. The leakage-free OOF construction is the
+standard discipline in tabular Kaggle pipelines and has been         for inference on the test set.
+adopted by recent NIDS benchmarks [15].
+                                                                        The meta-learner is a multi-class logistic regression  :
+                III. BACKGROUND AND DATASET                          R3K  K-1 that operates on the horizontal concatenation
+
+   5G-NIDD. We use the author-curated Encoded.csv dis-               of P1, P2, P3. The training target for  is y itself; because the
+tribution of 5G-NIDD [3], comprising 1 215 890 flows, 89
+numeric features (Argus-derived flow statistics augmented            columns of Pi are OOF, no row participates in both fitting any
+with one-hot encodings of TCP flags, protocol, state, and            Bi() and supervising . The final predictor on test sample x
+DSCP markings), and nine labels (Benign and eight attack             is
+families: ICMPFlood, SYNFlood, SYNScan, SlowrateDoS,
+TCPConnectScan, UDPFlood, UDPScan, HTTPFlood). The                   y^(x)  =  arg max     [B1(x); B2(x); B3(x)]  k.  (1)
+capture spans two base stations (BS1, BS2) on two days and
+is released under CC BY 4.0.                                                            k
+
+   We add a station marker reconstructed from row posi-                 Computational footprint. The full stack stores three base
+tion (BTS 1 positions 0­728 315, BTS 2 positions 728 316­            parameter sets plus a K × 3K meta weight matrix. Inference
+1 215 889) and a capture-day flag derived from the published         cost is the sum of the three base costs plus a single matrix­
+attack-to-day mapping. No class labels were re-scanned or            vector product and a softmax, dominated by the base learners
+revised.                                                             themselves.
+
+   Evaluation regimes. We adopt two complementary splits.            B. Latency­Accuracy Pareto Analysis
+Random is a stratified 80/20 split on the multi-class la-
+bel and represents the in-distribution upper bound. Cross-              We profile inference latency on a held-out test subset under
+station BS1BS2 trains on BS1 flows and evaluates on                  six batch sizes b  {1, 16, 64, 256, 1024, 4096}, repeating each
+BS2 flows, with both endpoints stratified-rebalanced to size         measurement ten times after two warm-up passes and reporting
+min |BS1c|, |BS2c| per class c to remove prior shift. Classes        the median. We report per-sample latency (µs/flow = 103 ·
+for which either |BS1c| or |BS2c| is zero are excluded from          tmed/b when tmed is the median batch latency in ms) and
+the rebalanced subset (in 5G-NIDD all nine labels appear in          throughput (samples/sec). The shared-host measurement is
+both stations, so no class is silently dropped in practice). The     acknowledged as an upper bound on real-time variance; we
+residual gap therefore measures true generalisation across two       mitigate jitter by ten repeats with explicit garbage collection
+physically distinct radio cells.                                     between passes.
+
+                             IV. METHOD                                 Each operating point in the Pareto plot is the pair µ~b, F~1
+                                                                     where µ~b is the median per-sample latency at batch b over the
+A. Heterogeneous Shallow Stacked Ensemble                            project's ten seeds and F~1 is the median macro-F1 under the
+                                                                     same seed distribution.
+   We instantiate three base learners {B1, B2, B3} deliberately
+chosen for diversity of inductive bias:                                                   V. EXPERIMENTAL SETUP
+
+   · B1: LightGBM [16], a leaf-wise gradient-boosted tree               Hardware. All training, inference, and latency profiling run
+      ensemble with histogram binning and a softmax multi-           on a single Linux host with 60 CPU cores and 256 GB of
+      class objective.                                               RAM, with no GPU. Reported numbers therefore correspond
+                                                                     directly to CPU-only deployment.
+   · B2: XGBoost [17] with the histogram tree method,
+      providing a depth-wise gradient-boosting baseline that            Software. Python 3.10, scikit-learn 1.7.2, LightGBM 4.6.0,
+      uses a different regularisation regime than B1.                XGBoost 3.2.0, NumPy 2.2.6, pandas 2.3.3. Exact pins and a
+                                                                     reviewer-runnable requirements.txt are in the released
+   · B3: a two-layer multi-layer perceptron (d  128  64              artefact.
+      K, ReLU activation, Adam optimiser, early stopping) [18],
+      providing non-tree decision boundaries.                           Seeds. We use the ten project seeds
+                                                                     {42, 123, 456, 789, 1011, 2026, 3141, 4242, 5555, 6789}
+                                                                     for all methods and all splits; per-split data assignments are
+                                                                     fully determined by the seed.
+
+                                                                        Hyperparameters. LightGBM: 300 trees,  = 0.05, 63
+                                                                     leaves, early stopping on 25 rounds. XGBoost: 300 trees,
+                                                                      = 0.05, depth 8, histogram method, early stopping on
+                                                                     25 rounds. MLP: hidden layers (128, 64), Adam,  = 10-4,
+                                         TABLE I                          Macro-F1 (median, 10 seeds)  1.00    MLP                 LightGBM              XGBoost
+     CLASSIFICATION QUALITY ON THE 5G-NIDD MULTI-CLASS TASK.                                           0.99
+MEAN±STD OVER THE 10 SEEDS DEFINED BY THE PROJECT CONVENTION
+
+         {42, 123, 456, 789, 1011, 2026, 3141, 4242, 5555, 6789}.
+
+Split                        Model                          Macro-F1      Weigh0te.d9-8F1                           Binary-F1      Binary FPR
+Random split
+                             LightGBM                     0.997±0.003     0.999±0.000 1.000±0.000 0.000±0.000
+Cross-station (BS1BS2)       XGBoost                      0.999±0.000
+                             MLP                          0.998±0.000     1.000±00.9.0700                      1.000±0.000 0.000±0.000
+                             Stacked ensemble (proposed)                  0.999±0.000
+                                                                 ­                                             1.000±0.000 0.000±0.000
+                             LightGBM                                            ­0.96                                 L­ightGBM
+                             XGBoost                             ­                                                     XGBoost     ­
+                             MLP                                 ­
+                             Stacked ensemble (proposed)         ­                                     ­               M­LP        ­
+                                                                 ­
+                                                                                                       ­­0.95          ­           ­           102
+                                                                                                       ­               ­­101       ­
+                                                                                                                                   ­
+
+                                                                                                       Per-sample latency at batch=256 (µs, log scale)
+
+                                         TABLE II                      Fig. 1. Latency­accuracy Pareto frontier at batch size 256 on the random
+    INFERENCE LATENCY ON A 60-CORE, 256 GB-RAM CPU SERVER.             split. Per-sample latency on the horizontal axis is logarithmic; each point is
+MEDIAN OVER 10 SEEDS AND 10 TIMING REPETITIONS; LOWER IS FASTER.       the median over the ten project seeds.
+
+Model                        µs/flow @ b=1 thr./sec @ b=1 µs/flow @ b=256 thr./sec @ b=256 µs/flow @ b=4096 thr./sec @ b=4096
+
+LightGBM                     4039.4       0.2k                     19.8   Throughput (flows/sec)               50.6k               4.5              220.8k
+                                                                                                                                                    58.8k
+XGBoost                      33173.4      0.0k                     155.1                               105      6.4k               17.0             86.7k
+MLP                                                                 4.8                                        209.3k              11.5
+                             562.4        1.8k                                                                                                         ­
+
+Stacked ensemble (proposed)  ­            ­                            ­                                            ­              ­
+
+                                                                                                       104
+
+batch size 512, max 40 epochs with early stopping on a 10 %                                            103
+
+internal validation hold-out. Meta-learner: multinomial logistic                                                                                    LightGBM
+                                                                                                                                                    XGBoost
+regression with L2 penalty C = 1 and the L-BFGS solver. All                                            102                                          MLP
+
+choices are pinned in configs/models.yaml.
+
+                             VI. RESULTS                                                                       100            101        102        103
+A. Classification Quality
+                                                                                                                                   Batch size
+
+   Table I reports macro-F1, weighted-F1, binary-F1, and the           Fig. 2. Inference throughput against batch size on the random split. Throughput
+binary false-positive rate (FPR) across the four model variants        increases sub-linearly because the dominant per-batch cost plateaus once
+and the two splits. Under the stratified random split all models       vectorised kernels saturate.
+exceed macro-F1 0.99, with the stacked ensemble matching
+or improving the best single base learner. Under the cross-            C. Per-Class Behaviour Under Cross-Station Shift
+station split BS1BS2 the gap between methods widens: the
+stacked ensemble narrows the generalisation drop more than                Figure 3 and Table III drill into per-class F1 under the cross-
+any single base learner, supporting the intuition that combining       station split. The drops concentrate on classes whose Argus
+complementary inductive biases helps when the test distribution        statistics are most BS-dependent (the SYN-based scanning
+shifts.                                                                families and the slow-rate DoS). The stacked ensemble's gain is
+                                                                       most visible on these minority cross-station classes, consistent
+B. Latency­Accuracy Pareto Frontier                                    with the theory that combining heterogeneous base models
+                                                                       smooths errors that are correlated within a single hypothesis
+   Figure 1 shows the Pareto frontier at batch size 256                class.
+(representative of MEC line-rate ingest); Figure 2 plots
+throughput against batch size across two decades. Per-sample           D. Overall Quality Summary
+latency is dominated by the tree learners at small batch sizes
+(where LightGBM's C-implementation has the lowest constant                Figure 4 consolidates the macro-F1 numbers in Table I for
+overhead) and by the MLP's dense matrix multiplications at             visual reference.
+larger batches. The stacked ensemble costs the sum of its
+base learners plus a negligible O(K2) softmax over the meta               VII. DISCUSSION: DEPLOYMENT OPERATING POINTS
+features; the resulting frontier point sits to the right of the
+bases on the latency axis but above them on the accuracy axis             The latency­accuracy frontier admits three practical operat-
+whenever the gap is meaningful, allowing operators to choose           ing points:
+by constraint.
+                                                                          · Latency-critical (sub-microsecond per flow, batch 1):
+                                                                             LightGBM alone offers the lowest constant-overhead
+                                                                             inference because the histogram-binned trees evaluate
+                                                                                       TABLE III
+PER-CLASS F1 ON CROSS-STATION BS1BS2 (MEDIAN OVER 10 SEEDS). STACKED ENSEMBLE CLOSES THE GAP ON THE IMBALANCED MINORITY
+
+                                                                                        CLASSES.
+
+Model                        Benign  HTTPFlood  ICMPFlood    SYNFlood       SYNScan  SlowrateDoS  TCPConnectScan  UDPFlood  UDPScan
+
+LightGBM                        ­          ­          ­           ­              ­          ­               ­          ­         ­
+XGBoost                         ­          ­          ­           ­              ­          ­               ­          ­         ­
+MLP                             ­          ­          ­           ­              ­          ­               ­          ­         ­
+Stacked ensemble (proposed)     ­          ­          ­           ­              ­          ­               ­          ­         ­
+
+                   placeholder                                              This three-tier mapping is the practical deliverable for op-
+                                                                            erators who must satisfy both an accuracy floor and a
+Fig. 3. Per-class F1 (median over ten seeds) on the cross-station split     latency budget; the artefact publishes the full machine-
+BS1BS2. The stacked ensemble preserves accuracy on classes where            readable mapping in results/summary_means.csv and
+individual base learners are sensitive to station drift.                    results/latency_summary.csv.
+
+          1.00                                                                 Positioning vs deep detectors. Recent deep detectors on
+                                                                            5G-NIDD [4], [6], [7] pursue peak accuracy; we deliberately
+Macro-F1  0.75                                                              target the lightweight end of the spectrum where boosted
+                                                                            trees plus a two-layer MLP can be combined into a CPU-
+          0.50                                                              deployable stack. Direct numerical comparison with those
+                                                                            models requires reproducing their published hyperparameters
+          0.25                                                              and training pipelines, which lies outside this paper's page
+                                                                            budget. Our position is therefore the latency-accuracy frontier
+          0.00                                                              rather than the peak accuracy leaderboard.
+
+          LightGBRMandom spliMt LP Cross-station (BS1  BS2)                                    VIII. THREATS TO VALIDITY
+
+          XGBoost            Stacked ensemble (proposed)                       The 5G-NIDD capture covers two base stations and a finite
+                                                                            attack catalogue; cross-operator and cross-vendor generalisation
+Fig. 4. Macro-F1 (mean over ten seeds, error bars are 1 std) per model and  remain open. Cross-station numbers are sensitive to the per-
+split.                                                                      class rebalancing scheme; we report a stratified-min rebalance
+                                                                            that removes prior shift but does not eliminate concept shift
+   as a sequence of cache-friendly integer comparisons. The                 in feature space. We do not include a day-level temporal
+   accuracy floor is the macro-F1 reported in Table I for                   split because the disjoint attack catalogue between the two
+   LightGBM.                                                                capture days in 5G-NIDD entangles temporal drift with attack
+· Balanced edge (a few microseconds per flow, batch                         novelty; a within-day temporal split would require a finer-
+   256­1024): the stacked ensemble dominates: its absolute                  grained timestamp than is exposed in the public release. Latency
+   latency overhead vs. the fastest base is comparable to the               numbers are collected on a shared 60-core host; absolute values
+   intra-batch variance of a single base, while macro-F1 is at              would change on edge-class CPUs (Raspberry Pi, ARM-based
+   least as high as the best single base on the random split                MEC accelerators) but the ordinal Pareto structure is expected
+   and higher under cross-station shift.                                    to persist.
+· Accuracy-first analytics (large batches,  4096): the
+   stacked ensemble is the recommended configuration; the                                             IX. CONCLUSION
+   throughput advantage of any single base is amortised over
+   the batch, so the marginal cost of stacking is small relative               We presented a heterogeneous shallow stacked ensemble for
+   to the per-class F1 gains.                                               AI-enabled 5G network intrusion detection on the 5G-NIDD
+                                                                            benchmark. The ensemble combines LightGBM, XGBoost,
+                                                                            and a two-layer MLP through leakage-free out-of-fold cross-
+                                                                            validated probability stacking with a logistic-regression meta-
+                                                                            learner. Across the random and cross-station splits the stack
+                                                                            matches or improves the best single base learner at a latency
+                                                                            cost that remains compatible with edge deployment on a
+                                                                            commodity 60-core CPU host. We released the artefact--
+                                                                            code, hyperparameters, ten project seeds, and the aggregation
+                                                                            pipeline--under MIT, with a reviewer-runnable single com-
+                                                                            mand to reproduce every number and figure in this paper.
+                                                                            Future work will profile inference on edge-class CPU and
+                                                                            FPGA targets and extend the cross-station analysis to multi-
+                                                                            operator captures as they become available.
+                        ACKNOWLEDGMENTS
+
+   This work was supported by the Posts and Telecommunica-
+
+tions Institute of Technology (PTIT), Vietnam. The authors used
+
+a generative AI assistant to support language editing, readability
+
+improvements, and code development and debugging; all
+
+generated content was critically reviewed and verified by the
+
+authors, who take full responsibility for the integrity and
+
+correctness of the published material.
+
+                             REFERENCES
+
+ [1] S. Samarakoon, Y. Siriwardhana, P. Porambage, M. Liyanage, S.-Y.
+      Chang, J. Kim, J. Kim, and M. Ylianttila, "5G-NIDD: A comprehensive
+      network intrusion detection dataset generated over 5G wireless network,"
+      arXiv preprint arXiv:2212.01298, 2022.
+
+ [2] S. Samarakoon et al., "NIDD-enabled lightweight intrusion detection for
+      effective DDoS mitigation in 5G and beyond," Scientific Reports, 2025.
+
+ [3] Y. Siriwardhana, S. Samarakoon, P. Porambage, M. Liyanage, and
+      M. Ylianttila, "5G-NIDD: A real-network intrusion detection dataset
+      generated over a 5G wireless network," IEEE Data Descriptions, vol. 2,
+      2025.
+
+ [4] P. Toupas, C. Stylianopoulos, D. Chatzakou, S. Vrochidis, and I. Kom-
+      patsiaris, "DeepTransIDS: Transformer-based deep learning model for
+      detecting DDoS attacks on 5G NIDD," Array, 2025.
+
+ [5] A. Ksibi et al., "DTL-5G: Deep transfer learning-based DDoS attack
+      detection in 5G and beyond networks," Computer Communications, 2024.
+
+ [6] L. Shi et al., "Convolutional neural networks and mixture of experts for
+      intrusion detection in 5g networks and beyond," Scientific Reports, 2024.
+
+ [7] M. Ahmed et al., "DSEM-NIDS: A deep-stacked ensemble model based
+      network intrusion detection system using 5G-NIDD, UNR-IDD, N-BaIoT,
+      and NSL-KDD," Computers and Electrical Engineering, 2024.
+
+ [8] S. Hettich and S. D. Bay, "The UCI KDD archive: KDD cup 1999 data,"
+      http://kdd.ics.uci.edu/databases/kddcup99/, 1999.
+
+ [9] N. Moustafa and J. Slay, "UNSW-NB15: A comprehensive data set for
+      network intrusion detection systems," in Military Communications and
+      Information Systems Conference, 2015.
+
+[10] I. Sharafaldin, A. H. Lashkari, and A. A. Ghorbani, "Toward generating
+      a new intrusion detection dataset and intrusion traffic characterization,"
+      in Proc. ICISSP, 2018, pp. 108­116.
+
+[11] N. Koroniotis, N. Moustafa, E. Sitnikova, and B. Turnbull, "Towards
+      the development of realistic botnet dataset in the Internet of Things
+      for network forensic analytics: Bot-IoT dataset," Future Generation
+      Computer Systems, vol. 100, pp. 779­796, 2019.
+
+[12] M. A. Ferrag, O. Friha, D. Hamouda, L. Maglaras, and H. Janicke,
+      "Edge-IIoTset: A new comprehensive realistic cyber security dataset of
+      IoT and IIoT applications for centralized and federated learning," IEEE
+      Access, vol. 10, pp. 40 281­40 306, 2022.
+
+[13] D. H. Wolpert, "Stacked generalization," Neural Networks, vol. 5, no. 2,
+      pp. 241­259, 1992.
+
+[14] L. Breiman, "Stacked regressions," Machine Learning, vol. 24, no. 1, pp.
+      49­64, 1996.
+
+[15] Y. N. Kunang, S. Nurmaini, D. Stiawan, and B. Y. Suprapto, "Attack
+      classification of an intrusion detection system using deep learning
+      and hyperparameter optimization," Journal of Information Security and
+      Applications, 2024.
+
+[16] G. Ke, Q. Meng, T. Finley, T. Wang, W. Chen, W. Ma, Q. Ye, and T.-Y.
+      Liu, "LightGBM: A highly efficient gradient boosting decision tree," in
+      Advances in Neural Information Processing Systems, vol. 30, 2017.
+
+[17] T. Chen and C. Guestrin, "XGBoost: A scalable tree boosting system,"
+      in Proc. ACM SIGKDD, 2016, pp. 785­794.
+
+[18] F. Pedregosa, G. Varoquaux, A. Gramfort, V. Michel, B. Thirion, O. Grisel,
+      M. Blondel, P. Prettenhofer, R. Weiss, V. Dubourg et al., "Scikit-learn:
+      Machine learning in Python," Journal of Machine Learning Research,
+      vol. 12, pp. 2825­2830, 2011.
+

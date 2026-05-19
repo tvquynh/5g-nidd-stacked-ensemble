@@ -1,0 +1,15 @@
+\begin{table}[!t]
+\centering
+\caption{Inference latency on a 60-core, 256\,GB-RAM CPU server. Median over 10 seeds and 10 timing repetitions; lower is faster.}
+\label{tab:latency}
+\begin{tabular}{lcccccc}
+\toprule
+Model & $\mu$s/flow @\,b=1 & thr./sec @\,b=1 & $\mu$s/flow @\,b=256 & thr./sec @\,b=256 & $\mu$s/flow @\,b=4096 & thr./sec @\,b=4096 \\
+\midrule
+LightGBM & 4039.4 & 0.2k & 19.8 & 50.6k & 4.5 & 220.8k \\
+XGBoost & 33173.4 & 0.0k & 155.1 & 6.4k & 17.0 & 58.8k \\
+MLP & 562.4 & 1.8k & 4.8 & 209.3k & 11.5 & 86.7k \\
+Stacked ensemble (\textbf{proposed}) & -- & -- & -- & -- & -- & -- \\
+\bottomrule
+\end{tabular}
+\end{table}
