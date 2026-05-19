@@ -1,10 +1,11 @@
-# ATC 2026 — Lightweight Stacked Ensemble for 5G NIDS
+# ATC 2026 — Anonymous submission ********** ****
 
-Reviewer-runnable artefact for the manuscript *"Lightweight Stacked Ensemble for
-AI-Enabled 5G Network Intrusion Detection: A Latency-Accuracy Pareto Analysis"*
-submitted to the 2026 International Conference on Advanced Technologies for
-Communications (ATC 2026), Special Session "AI-Enabled 5G/6G Communication
-Systems".
+Reviewer-runnable artefact for an anonymised submission to the 2026
+International Conference on Advanced Technologies for Communications
+(ATC 2026), Special Session "AI-Enabled 5G/6G Communication Systems".
+Title and author metadata are redacted in this README per the project's
+reviewer-artefact anonymisation rule and restored after acceptance from
+the canonicals in `.restore-on-accept/`.
 
 ## Contribution summary
 
