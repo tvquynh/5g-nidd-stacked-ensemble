@@ -281,15 +281,18 @@ test distribution shifts.
 
 Figure~\ref{fig:pareto} shows the Pareto frontier at batch size 256
 (representative of MEC line-rate ingest); Figure~\ref{fig:throughput}
-plots throughput against batch size across two decades. Per-sample
-latency is dominated by the tree learners at small batch sizes (where
-LightGBM's $C$-implementation has the lowest constant overhead) and by
-the MLP's dense matrix multiplications at larger batches. The stacked
-ensemble costs the sum of its base learners plus a negligible $O(K^2)$
-softmax over the meta features; the resulting frontier point sits to the
-right of the bases on the latency axis but above them on the accuracy
-axis whenever the gap is meaningful, allowing operators to choose by
-constraint.
+plots throughput against batch size across two decades. The per-sample
+latency profile is not flat in the batch size: at very small batches
+the MLP wins because the forward pass through two dense layers is a
+fixed-cost matrix multiplication, whereas the tree learners pay the
+constant overhead of histogram-bin lookups per traversal; at large
+batches the tree learners (LightGBM in particular) overtake the MLP
+because their per-sample work scales sub-linearly with the batch under
+vectorised softmax aggregation while the MLP's dense kernels saturate.
+The stacked ensemble adds the sum of its base learners and a negligible
+$O(K^2)$ softmax over the meta features; the resulting frontier point
+sits to the right of the bases on the latency axis but at least as high
+on the accuracy axis, allowing operators to pick by constraint.
 
 \begin{figure}[!t]
 \centering
@@ -350,22 +353,23 @@ model and split.}
 
 The latency--accuracy frontier admits three practical operating points:
 \begin{itemize}
-    \item \emph{Latency-critical} (sub-microsecond per flow, batch~1):
-        LightGBM alone offers the lowest constant-overhead inference
-        because the histogram-binned trees evaluate as a sequence of
-        cache-friendly integer comparisons. The accuracy floor is the
-        macro-F1 reported in Table~\ref{tab:main} for LightGBM.
-    \item \emph{Balanced edge} (a few microseconds per flow, batch
-        256--1024): the stacked ensemble dominates: its absolute
-        latency overhead vs.\ the fastest base is comparable to the
-        intra-batch variance of a single base, while macro-F1 is at
-        least as high as the best single base on the random split and
-        higher under cross-station shift.
+    \item \emph{Latency-critical streaming} (single-flow inference, batch~1):
+        the MLP wins on raw constant-overhead latency, because its
+        forward pass is a fixed-size dense matmul. The accuracy floor is
+        the macro-F1 reported for the MLP in Table~\ref{tab:main}.
+    \item \emph{Balanced MEC edge} (batch 64--1024): the stacked ensemble
+        is the recommended configuration. Its absolute per-sample
+        latency at batch~256 stays inside the tens-of-microseconds
+        budget that 5G MEC slot allocators tolerate, while its macro-F1
+        is at least as high as the best single base on the random split
+        and modestly higher under cross-station shift.
     \item \emph{Accuracy-first analytics} (large batches, $\geq 4096$):
-        the stacked ensemble is the recommended configuration; the
-        throughput advantage of any single base is amortised over the
-        batch, so the marginal cost of stacking is small relative to
-        the per-class F1 gains.
+        LightGBM offers the lowest per-sample latency among single base
+        learners as the histogram-binned trees vectorise efficiently
+        across the batch; the stacked ensemble remains preferable when
+        the goal is a single deployment that performs uniformly across
+        both splits, because the marginal cost of stacking is amortised
+        over the batch.
 \end{itemize}
 This three-tier mapping is the practical deliverable for operators who
 must satisfy both an accuracy floor and a latency budget; the artefact
