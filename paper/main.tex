@@ -394,15 +394,16 @@ recover the MLP's Benign-class advantage. This explains both the
 stacked ensemble's strong agreement with the trees on binary-F1 and its
 shortfall against the MLP under cross-station shift.
 
-\begin{figure*}[!t]
+\begin{figure}[!t]
 \centering
-\includegraphics[width=0.95\textwidth]{figures/fig4_per_class_f1_cross_station.pdf}
+\includegraphics[width=0.95\columnwidth]{figures/fig4_per_class_f1_cross_station.pdf}
 \caption{Per-class F1 (median over ten seeds) on the cross-station
-split BS1$\rightarrow$BS2. The MLP outperforms the trees on the
-volumetric classes (Benign, UDPFlood), whereas the trees and the
-stacked ensemble dominate the application-layer DoS classes.}
+split BS1$\rightarrow$BS2 (x-axis zoomed to $[0.6, 1.0]$). The MLP
+outperforms the trees on the volumetric classes (Benign, UDPFlood);
+the trees and the stacked ensemble dominate the application-layer DoS
+classes.}
 \label{fig:per_class_xs}
-\end{figure*}
+\end{figure}
 
 \input{tables/tab_per_class.tex}
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.4.28)  20 MAY 2026 16:08
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.4.28)  20 MAY 2026 16:17
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -612,33 +612,29 @@ Package pdftex.def Info: figures/fig3_throughput_vs_batch.pdf  used on input li
 ne 372.
 (pdftex.def)             Requested size: 239.39923pt x 153.09908pt.
  (tables/tab_latency.tex)
-<figures/fig4_per_class_f1_cross_station.pdf, id=28, 505.76704pt x 175.42514pt>
+<figures/fig4_per_class_f1_cross_station.pdf, id=28, 245.61826pt x 205.90262pt>
 
 File: figures/fig4_per_class_f1_cross_station.pdf Graphic file (type pdf)
 <use figures/fig4_per_class_f1_cross_station.pdf>
 Package pdftex.def Info: figures/fig4_per_class_f1_cross_station.pdf  used on i
 nput line 399.
-(pdftex.def)             Requested size: 490.19843pt x 170.02832pt.
- (tables/tab_per_class.tex
-Overfull \hbox (33.62071pt too wide) in paragraph at lines 5--15
- [][] 
- []
-
-)
+(pdftex.def)             Requested size: 239.39923pt x 200.69296pt.
+ (tables/tab_per_class.tex)
 <figures/fig1_f1_by_model_split.pdf, id=29, 245.84102pt x 169.8122pt>
 File: figures/fig1_f1_by_model_split.pdf Graphic file (type pdf)
 <use figures/fig1_f1_by_model_split.pdf>
 Package pdftex.def Info: figures/fig1_f1_by_model_split.pdf  used on input line
- 416.
+ 417.
 (pdftex.def)             Requested size: 239.39923pt x 165.37059pt.
  [3]
-Overfull \vbox (5.6497pt too high) has occurred while \output is active []
+Overfull \vbox (6.3633pt too high) has occurred while \output is active []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [4 <./figures/fig2_pareto_latency_accuracy.pdf>] [5 <./figures/fig3_throughput
-_vs_batch.pdf>] (main.bbl
+_vs_batch.pdf> <./figures/fig4_per_class_f1_cross_station.pdf> <./figures/fig1_
+f1_by_model_split.pdf>] (main.bbl
 Underfull \hbox (badness 3872) in paragraph at lines 41--44
 []\OT1/ptm/m/n/8 (+20) K. Harshdeep, S. Konatham, and R. Mathur, ``Deep-Tran-sI
 DS:
@@ -656,8 +652,7 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[6 <./figures/fig4_per_class_f1_cross_station.pdf> <./figures/fig1_f1_by_model_
-split.pdf>] (main.aux)
+[6] (main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
@@ -666,7 +661,7 @@ L3 programming layer <2025-12-24>
 Here is how much of TeX's memory you used:
  11715 strings out of 467871
  251152 string characters out of 5415472
- 676909 words of memory out of 5000000
+ 678991 words of memory out of 5000000
  40029 multiletter control sequences out of 15000+600000
  698637 words of font info for 407 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -696,7 +691,7 @@ b8a.pfb><C:/Users/admin.local/AppData/Local/Programs/MiKTeX/fonts/type1/urw/tim
 es/utmbi8a.pfb><C:/Users/admin.local/AppData/Local/Programs/MiKTeX/fonts/type1/
 urw/times/utmr8a.pfb><C:/Users/admin.local/AppData/Local/Programs/MiKTeX/fonts/
 type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (6 pages, 336723 bytes).
+Output written on main.pdf (6 pages, 337390 bytes).
 PDF statistics:
  181 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

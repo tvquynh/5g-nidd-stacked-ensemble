@@ -163,6 +163,8 @@ def table_per_class(metrics_dir: Path, classes: List[str], out: Path,
                  r"The MLP excels on the volumetric classes (Benign, UDPFlood) while the gradient-boosted "
                  r"trees and the stacked ensemble dominate the application-layer DoS classes.}")
     lines.append(r"\label{tab:perclass}")
+    lines.append(r"\setlength{\tabcolsep}{4pt}")
+    lines.append(r"\resizebox{\textwidth}{!}{%")
     cols = "l" + "c" * len(classes)
     lines.append(rf"\begin{{tabular}}{{{cols}}}")
     lines.append(r"\toprule")
@@ -176,7 +178,8 @@ def table_per_class(metrics_dir: Path, classes: List[str], out: Path,
             cells.append("--" if pd.isna(v) else f"{v:.3f}")
         lines.append(" & ".join(cells) + r" \\")
     lines.append(r"\bottomrule")
-    lines.append(r"\end{tabular}")
+    lines.append(r"\end{tabular}%")
+    lines.append(r"}")
     lines.append(r"\end{table*}")
     out.write_text("\n".join(lines), encoding="utf-8")
     print(f"[tab] {out}")

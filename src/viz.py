@@ -173,8 +173,9 @@ def fig_throughput_curves(latency: pd.DataFrame, out: Path, split: str = "random
 
 def fig_per_class_f1(metrics_dir: Path, classes: List[str], out: Path,
                      split: str = "cross_station", train_bs: int = 1):
-    """Horizontal grouped bar chart of per-class F1 (median over seeds) — legend
-    placed above the plot so it never overlaps the class names on the y-axis.
+    """Compact 1-column horizontal grouped bar chart of per-class F1 (median over
+    seeds). Sized for the IEEE conference 1-column width (~3.5 in) so it does not
+    need to float as a `figure*` to the last page.
     """
     models = ["lightgbm", "xgboost", "mlp", "stacked"]
     suffix = f"_bs{train_bs}" if split == "cross_station" else ""
@@ -197,7 +198,7 @@ def fig_per_class_f1(metrics_dir: Path, classes: List[str], out: Path,
     if df.empty:
         return
     pivot = df.pivot(index="class", columns="model", values="f1").reindex(classes)
-    fig, ax = plt.subplots(figsize=(7.1, 2.6))
+    fig, ax = plt.subplots(figsize=(3.5, 3.0))
     y = np.arange(len(classes))
     height = 0.20
     for i, m in enumerate(models):
@@ -208,11 +209,13 @@ def fig_per_class_f1(metrics_dir: Path, classes: List[str], out: Path,
                 color=MODEL_COLOR[m], edgecolor="white", linewidth=0.4,
                 label=MODEL_LABEL[m])
     ax.set_yticks(y)
-    ax.set_yticklabels(classes, fontsize=8)
+    ax.set_yticklabels(classes, fontsize=7)
     ax.invert_yaxis()
-    ax.set_xlabel("Per-class F1 (median)")
-    ax.set_xlim(0.0, 1.05)
-    ax.legend(ncol=4, fontsize=7, loc="upper center", bbox_to_anchor=(0.5, 1.18))
+    ax.set_xlabel("Per-class F1 (median)", fontsize=8)
+    ax.set_xlim(0.6, 1.02)  # all values >= 0.69; zoom in to expose differences
+    ax.tick_params(axis="x", labelsize=7)
+    ax.legend(ncol=2, fontsize=6, loc="upper center", bbox_to_anchor=(0.5, 1.18),
+              columnspacing=0.8, handlelength=1.4)
     fig.tight_layout()
     fig.savefig(out, dpi=400, bbox_inches="tight")
     plt.close(fig)
