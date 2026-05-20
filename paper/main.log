@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.4.28)  20 MAY 2026 15:52
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.4.28)  20 MAY 2026 16:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -492,14 +492,14 @@ nslations-basic-dictionary')
 )
 Package translations Info: loading dictionary `translations-basic-dictionary' f
 or `english'. on input line 18.
-LaTeX Font Info:    Calculating math sizes for size <11> on input line 49.
+LaTeX Font Info:    Calculating math sizes for size <11> on input line 54.
 
 (C:\Users\admin.local\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-cmr.
 cfg
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
 (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 49.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 54.
 
 
 (C:\Users\admin.local\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
@@ -509,7 +509,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 49.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 54.
 
 
 (C:\Users\admin.local\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
@@ -524,41 +524,41 @@ Users/admin.local/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}
 
 ]
 LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 1
-36.
+41.
 
 (C:\Users\admin.local\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
-Underfull \hbox (badness 10000) in paragraph at lines 132--139
+Underfull \hbox (badness 10000) in paragraph at lines 137--144
 []\OT1/ptm/b/n/10 (+20) Reproducibility. \OT1/ptm/m/n/10 (+20) Code, con-fig-u-
 ra-tion files,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 132--139
+Underfull \hbox (badness 10000) in paragraph at lines 137--144
 \OT1/ptm/m/n/10 (+20) hy-per-pa-ram-e-ters, the ten project seeds, and the
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 132--139
+Underfull \hbox (badness 10000) in paragraph at lines 137--144
 \OT1/ptm/m/n/10 (+20) https : / / github . com / tvquynh / 5g-[]nidd-[]stacked-
 []ensemble$ (tag
  []
 
 [2]
 LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 2
-64.
+69.
 
 (C:\Users\admin.local\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 )
-Underfull \hbox (badness 10000) in paragraph at lines 290--296
+Underfull \hbox (badness 10000) in paragraph at lines 295--301
 []\OT1/ptm/b/n/10 (+20) Seeds. \OT1/ptm/m/n/10 (+20) We use the ten project see
 ds
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 290--296
+Underfull \hbox (badness 10000) in paragraph at lines 295--301
 \OMS/cmsy/m/n/10 f\OT1/cmr/m/n/10 42\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 123\OML/
 cmm/m/it/10 ; \OT1/cmr/m/n/10 456\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 789\OML/cmm
 /m/it/10 ; \OT1/cmr/m/n/10 1011\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 2026\OML/cmm/
@@ -568,7 +568,7 @@ m/it/10 ; \OT1/cmr/m/n/10 3141\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 4242\OML/cmm/m
  []
 
 
-Underfull \hbox (badness 1694) in paragraph at lines 290--296
+Underfull \hbox (badness 1694) in paragraph at lines 295--301
 \OT1/ptm/m/n/10 (+20) re-bal-ance (Sec-tion III[]) is re-sam-pled per seed us-i
 ng a
  []
@@ -603,13 +603,13 @@ LaTeX Font Warning: Font shape `OT1/ptm/m/scit' undefined
 File: figures/fig2_pareto_latency_accuracy.pdf Graphic file (type pdf)
 <use figures/fig2_pareto_latency_accuracy.pdf>
 Package pdftex.def Info: figures/fig2_pareto_latency_accuracy.pdf  used on inpu
-t line 355.
+t line 360.
 (pdftex.def)             Requested size: 490.19843pt x 204.15907pt.
 <figures/fig3_throughput_vs_batch.pdf, id=27, 245.2407pt x 156.83267pt>
 File: figures/fig3_throughput_vs_batch.pdf Graphic file (type pdf)
 <use figures/fig3_throughput_vs_batch.pdf>
 Package pdftex.def Info: figures/fig3_throughput_vs_batch.pdf  used on input li
-ne 367.
+ne 372.
 (pdftex.def)             Requested size: 239.39923pt x 153.09908pt.
  (tables/tab_latency.tex)
 <figures/fig4_per_class_f1_cross_station.pdf, id=28, 505.76704pt x 175.42514pt>
@@ -617,8 +617,8 @@ ne 367.
 File: figures/fig4_per_class_f1_cross_station.pdf Graphic file (type pdf)
 <use figures/fig4_per_class_f1_cross_station.pdf>
 Package pdftex.def Info: figures/fig4_per_class_f1_cross_station.pdf  used on i
-nput line 394.
-(pdftex.def)             Requested size: 239.39923pt x 83.03336pt.
+nput line 399.
+(pdftex.def)             Requested size: 490.19843pt x 170.02832pt.
  (tables/tab_per_class.tex
 Overfull \hbox (33.62071pt too wide) in paragraph at lines 5--15
  [][] 
@@ -629,7 +629,7 @@ Overfull \hbox (33.62071pt too wide) in paragraph at lines 5--15
 File: figures/fig1_f1_by_model_split.pdf Graphic file (type pdf)
 <use figures/fig1_f1_by_model_split.pdf>
 Package pdftex.def Info: figures/fig1_f1_by_model_split.pdf  used on input line
- 411.
+ 416.
 (pdftex.def)             Requested size: 239.39923pt x 165.37059pt.
  [3]
 Overfull \vbox (5.6497pt too high) has occurred while \output is active []
@@ -638,8 +638,7 @@ Overfull \vbox (5.6497pt too high) has occurred while \output is active []
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [4 <./figures/fig2_pareto_latency_accuracy.pdf>] [5 <./figures/fig3_throughput
-_vs_batch.pdf> <./figures/fig4_per_class_f1_cross_station.pdf> <./figures/fig1_
-f1_by_model_split.pdf>] (main.bbl
+_vs_batch.pdf>] (main.bbl
 Underfull \hbox (badness 3872) in paragraph at lines 41--44
 []\OT1/ptm/m/n/8 (+20) K. Harshdeep, S. Konatham, and R. Mathur, ``Deep-Tran-sI
 DS:
@@ -657,20 +656,21 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[6] (main.aux)
+[6 <./figures/fig4_per_class_f1_cross_station.pdf> <./figures/fig1_f1_by_model_
+split.pdf>] (main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 11696 strings out of 467871
- 250907 string characters out of 5415472
- 677658 words of memory out of 5000000
- 40025 multiletter control sequences out of 15000+600000
- 695934 words of font info for 399 fonts, out of 8000000 for 9000
+ 11715 strings out of 467871
+ 251152 string characters out of 5415472
+ 676909 words of memory out of 5000000
+ 40029 multiletter control sequences out of 15000+600000
+ 698637 words of font info for 407 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 73i,11n,80p,1003b,541s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 73i,13n,80p,1003b,541s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/admin.local/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
 ts/cm/cmex10.pfb><C:/Users/admin.local/AppData/Local/Programs/MiKTeX/fonts/type
 1/public/amsfonts/cm/cmmi10.pfb><C:/Users/admin.local/AppData/Local/Programs/Mi
@@ -696,9 +696,9 @@ b8a.pfb><C:/Users/admin.local/AppData/Local/Programs/MiKTeX/fonts/type1/urw/tim
 es/utmbi8a.pfb><C:/Users/admin.local/AppData/Local/Programs/MiKTeX/fonts/type1/
 urw/times/utmr8a.pfb><C:/Users/admin.local/AppData/Local/Programs/MiKTeX/fonts/
 type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (6 pages, 335659 bytes).
+Output written on main.pdf (6 pages, 336723 bytes).
 PDF statistics:
  181 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 81941 words of extra memory for PDF output out of 89155 (max. 10000000)
+ 90133 words of extra memory for PDF output out of 106986 (max. 10000000)
 

@@ -20,30 +20,35 @@
 \title{Lightweight Stacked Ensemble for AI-Enabled 5G Network Intrusion Detection: A Latency--Accuracy Pareto Analysis
 }
 
-\author{
-\IEEEauthorblockN{1\textsuperscript{st} Trong-Thua Huynh}
-\IEEEauthorblockA{\textit{Information Security Technology Lab}\\
+\author{%
+\begin{minipage}[t]{0.48\textwidth}\centering
+\textbf{1\textsuperscript{st} Trong-Thua Huynh}\\[0.25em]
+\textit{Information Security Technology Lab}\\
 \textit{Posts and Telecommunications Institute of Technology}\\
-Vietnam \\
-thuaht@ptit.edu.vn \,/\, ORCID 0000-0003-3934-1067}
-\and
-\IEEEauthorblockN{2\textsuperscript{nd} Van-Quynh Trinh\,(\textit{corresp.})}
-\IEEEauthorblockA{\textit{Information Security Technology Lab}\\
+Vietnam\\
+thuaht@ptit.edu.vn \,/\, ORCID 0000-0003-3934-1067
+\end{minipage}%
+\begin{minipage}[t]{0.48\textwidth}\centering
+\textbf{2\textsuperscript{nd} Van-Quynh Trinh \textit{(corresp.)}}\\[0.25em]
+\textit{Information Security Technology Lab}\\
 \textit{Posts and Telecommunications Institute of Technology}\\
-Vietnam \\
-quynhtv@ptithcm.edu.vn \,/\, ORCID 0009-0006-0514-6123}
-\and
-\IEEEauthorblockN{3\textsuperscript{rd} De-Thu Huynh}
-\IEEEauthorblockA{\textit{School of Computer Science \& Engineering}\\
+Vietnam\\
+quynhtv@ptithcm.edu.vn \,/\, ORCID 0009-0006-0514-6123
+\end{minipage}\\[1.2em]
+\begin{minipage}[t]{0.48\textwidth}\centering
+\textbf{3\textsuperscript{rd} De-Thu Huynh}\\[0.25em]
+\textit{School of Computer Science \& Engineering}\\
 \textit{The Saigon International University}\\
-Vietnam \\
-huynhdethu@siu.edu.vn \,/\, ORCID 0000-0002-1227-0281}
-\and
-\IEEEauthorblockN{4\textsuperscript{th} Ngoc-Hieu Le}
-\IEEEauthorblockA{\textit{Information Security Technology Lab}\\
+Vietnam\\
+huynhdethu@siu.edu.vn \,/\, ORCID 0000-0002-1227-0281
+\end{minipage}%
+\begin{minipage}[t]{0.48\textwidth}\centering
+\textbf{4\textsuperscript{th} Ngoc-Hieu Le}\\[0.25em]
+\textit{Information Security Technology Lab}\\
 \textit{Posts and Telecommunications Institute of Technology}\\
-Vietnam \\
-hieuln@ptithcm.edu.vn \,/\, ORCID 0009-0005-4869-9003}
+Vietnam\\
+hieuln@ptithcm.edu.vn \,/\, ORCID 0009-0005-4869-9003
+\end{minipage}%
 }
 
 \maketitle
@@ -389,15 +394,15 @@ recover the MLP's Benign-class advantage. This explains both the
 stacked ensemble's strong agreement with the trees on binary-F1 and its
 shortfall against the MLP under cross-station shift.
 
-\begin{figure}[!t]
+\begin{figure*}[!t]
 \centering
-\includegraphics[width=0.95\columnwidth]{figures/fig4_per_class_f1_cross_station.pdf}
+\includegraphics[width=0.95\textwidth]{figures/fig4_per_class_f1_cross_station.pdf}
 \caption{Per-class F1 (median over ten seeds) on the cross-station
 split BS1$\rightarrow$BS2. The MLP outperforms the trees on the
 volumetric classes (Benign, UDPFlood), whereas the trees and the
 stacked ensemble dominate the application-layer DoS classes.}
 \label{fig:per_class_xs}
-\end{figure}
+\end{figure*}
 
 \input{tables/tab_per_class.tex}
 
