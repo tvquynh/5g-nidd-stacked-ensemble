@@ -23,6 +23,7 @@ from src.io_utils import load_paths
 SCALAR_COLS = (
     "macro_f1", "weighted_f1",
     "binary_precision", "binary_recall", "binary_f1", "binary_fpr",
+    "binary_tpr",
     "macro_roc_auc", "macro_pr_auc",
     "fit_time_sec", "inference_time_sec", "inference_throughput_per_sec",
     "n_train", "n_test", "n_features", "num_classes",

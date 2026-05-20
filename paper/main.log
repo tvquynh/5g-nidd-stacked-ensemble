@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.4.28)  20 MAY 2026 14:29
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.4.28)  20 MAY 2026 15:01
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -545,18 +545,20 @@ Underfull \hbox (badness 10000) in paragraph at lines 131--138
 []ensemble$ (tag
  []
 
+[2]
 LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 2
-56.
+63.
+
 (C:\Users\admin.local\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
-) [2]
-Underfull \hbox (badness 10000) in paragraph at lines 279--285
+)
+Underfull \hbox (badness 10000) in paragraph at lines 289--295
 []\OT1/ptm/b/n/10 (+20) Seeds. \OT1/ptm/m/n/10 (+20) We use the ten project see
 ds
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 279--285
+Underfull \hbox (badness 10000) in paragraph at lines 289--295
 \OMS/cmsy/m/n/10 f\OT1/cmr/m/n/10 42\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 123\OML/
 cmm/m/it/10 ; \OT1/cmr/m/n/10 456\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 789\OML/cmm
 /m/it/10 ; \OT1/cmr/m/n/10 1011\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 2026\OML/cmm/
@@ -566,7 +568,7 @@ m/it/10 ; \OT1/cmr/m/n/10 3141\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 4242\OML/cmm/m
  []
 
 
-Underfull \hbox (badness 1694) in paragraph at lines 279--285
+Underfull \hbox (badness 1694) in paragraph at lines 289--295
 \OT1/ptm/m/n/10 (+20) re-bal-ance (Sec-tion III[]) is re-sam-pled per seed us-i
 ng a
  []
@@ -588,32 +590,34 @@ LaTeX Font Warning: Font shape `OT1/ptm/m/scit' undefined
 LaTeX Font Warning: Font shape `OT1/ptm/m/scit' undefined
 (Font)              using `OT1/ptm/m/it' instead on input line 3.
 
+
+LaTeX Font Warning: Font shape `OT1/ptm/m/scit' undefined
+(Font)              using `OT1/ptm/m/it' instead on input line 3.
+
+
+LaTeX Font Warning: Font shape `OT1/ptm/m/scit' undefined
+(Font)              using `OT1/ptm/m/it' instead on input line 3.
+
 )
-<figures/fig2_pareto_latency_accuracy.pdf, id=26, 247.75404pt x 171.17262pt>
+<figures/fig2_pareto_latency_accuracy.pdf, id=26, 505.0914pt x 210.35112pt>
 File: figures/fig2_pareto_latency_accuracy.pdf Graphic file (type pdf)
 <use figures/fig2_pareto_latency_accuracy.pdf>
 Package pdftex.def Info: figures/fig2_pareto_latency_accuracy.pdf  used on inpu
-t line 339.
-(pdftex.def)             Requested size: 239.39923pt x 165.40254pt.
+t line 354.
+(pdftex.def)             Requested size: 490.19843pt x 204.15907pt.
 <figures/fig3_throughput_vs_batch.pdf, id=27, 245.2407pt x 156.83267pt>
 File: figures/fig3_throughput_vs_batch.pdf Graphic file (type pdf)
 <use figures/fig3_throughput_vs_batch.pdf>
 Package pdftex.def Info: figures/fig3_throughput_vs_batch.pdf  used on input li
-ne 348.
+ne 366.
 (pdftex.def)             Requested size: 239.39923pt x 153.09908pt.
- (tables/tab_latency.tex
-Overfull \hbox (255.97147pt too wide) in paragraph at lines 5--15
- [][] 
- []
-
-) [3 <./figures/fig2_pareto_latency_accuracy.pdf> <./figures/fig3_throughput_vs
-_batch.pdf>]
-<figures/fig4_per_class_f1_cross_station.pdf, id=51, 505.76704pt x 175.42514pt>
+ (tables/tab_latency.tex)
+<figures/fig4_per_class_f1_cross_station.pdf, id=28, 505.76704pt x 175.42514pt>
 
 File: figures/fig4_per_class_f1_cross_station.pdf Graphic file (type pdf)
 <use figures/fig4_per_class_f1_cross_station.pdf>
 Package pdftex.def Info: figures/fig4_per_class_f1_cross_station.pdf  used on i
-nput line 375.
+nput line 393.
 (pdftex.def)             Requested size: 239.39923pt x 83.03336pt.
  (tables/tab_per_class.tex
 Overfull \hbox (33.62071pt too wide) in paragraph at lines 5--15
@@ -621,14 +625,27 @@ Overfull \hbox (33.62071pt too wide) in paragraph at lines 5--15
  []
 
 )
-<figures/fig1_f1_by_model_split.pdf, id=52, 245.84102pt x 169.8122pt>
+<figures/fig1_f1_by_model_split.pdf, id=29, 245.84102pt x 169.8122pt>
 File: figures/fig1_f1_by_model_split.pdf Graphic file (type pdf)
 <use figures/fig1_f1_by_model_split.pdf>
 Package pdftex.def Info: figures/fig1_f1_by_model_split.pdf  used on input line
- 392.
+ 410.
 (pdftex.def)             Requested size: 239.39923pt x 165.37059pt.
- [4 <./figures/fig4_per_class_f1_cross_station.pdf> <./figures/fig1_f1_by_model
-_split.pdf>] (main.bbl [5])
+ [3]
+Overfull \vbox (5.6497pt too high) has occurred while \output is active []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [4 <./figures/fig2_pareto_latency_accuracy.pdf>] [5 <./figures/fig3_throughput
+_vs_batch.pdf> <./figures/fig4_per_class_f1_cross_station.pdf> <./figures/fig1_
+f1_by_model_split.pdf>] (main.bbl
+Underfull \hbox (badness 3872) in paragraph at lines 41--44
+[]\OT1/ptm/m/n/8 (+20) K. Harshdeep, S. Konatham, and R. Mathur, ``Deep-Tran-sI
+DS:
+ []
+
+)
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -640,20 +657,18 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[6
-
-] (main.aux)
+[6] (main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 11648 strings out of 467871
- 250356 string characters out of 5415472
- 667452 words of memory out of 5000000
- 40017 multiletter control sequences out of 15000+600000
- 690851 words of font info for 373 fonts, out of 8000000 for 9000
+ 11686 strings out of 467871
+ 250796 string characters out of 5415472
+ 676617 words of memory out of 5000000
+ 40024 multiletter control sequences out of 15000+600000
+ 694396 words of font info for 394 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  73i,11n,80p,1003b,541s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/admin.local/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
@@ -666,23 +681,24 @@ sers/admin.local/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/c
 mr10.pfb><C:/Users/admin.local/AppData/Local/Programs/MiKTeX/fonts/type1/public
 /amsfonts/cm/cmr6.pfb><C:/Users/admin.local/AppData/Local/Programs/MiKTeX/fonts
 /type1/public/amsfonts/cm/cmr7.pfb><C:/Users/admin.local/AppData/Local/Programs
-/MiKTeX/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Users/admin.local/AppData/L
-ocal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/admin.
-local/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C
-:/Users/admin.local/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/c
-m/cmsy7.pfb><C:/Users/admin.local/AppData/Local/Programs/MiKTeX/fonts/type1/pub
-lic/amsfonts/cm/cmsy8.pfb><C:/Users/admin.local/AppData/Local/Programs/MiKTeX/f
-onts/type1/public/amsfonts/cm/cmsy9.pfb><C:/Users/admin.local/AppData/Local/Pro
-grams/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb><C:/Users/admin.loc
-al/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb><C:/Users/a
-dmin.local/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/U
-sers/admin.local/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmbi8a.pf
+/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/admin.local/AppData/L
+ocal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Users/admin.lo
+cal/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:
+/Users/admin.local/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm
+/cmsy6.pfb><C:/Users/admin.local/AppData/Local/Programs/MiKTeX/fonts/type1/publ
+ic/amsfonts/cm/cmsy7.pfb><C:/Users/admin.local/AppData/Local/Programs/MiKTeX/fo
+nts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/admin.local/AppData/Local/Prog
+rams/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy9.pfb><C:/Users/admin.local/AppD
+ata/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb><C:/Us
+ers/admin.local/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrr8a.pf
 b><C:/Users/admin.local/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utm
-r8a.pfb><C:/Users/admin.local/AppData/Local/Programs/MiKTeX/fonts/type1/urw/tim
-es/utmri8a.pfb>
-Output written on main.pdf (6 pages, 318931 bytes).
+b8a.pfb><C:/Users/admin.local/AppData/Local/Programs/MiKTeX/fonts/type1/urw/tim
+es/utmbi8a.pfb><C:/Users/admin.local/AppData/Local/Programs/MiKTeX/fonts/type1/
+urw/times/utmr8a.pfb><C:/Users/admin.local/AppData/Local/Programs/MiKTeX/fonts/
+type1/urw/times/utmri8a.pfb>
+Output written on main.pdf (6 pages, 335109 bytes).
 PDF statistics:
- 169 PDF objects out of 1000 (max. 8388607)
+ 181 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 69653 words of extra memory for PDF output out of 74296 (max. 10000000)
+ 77845 words of extra memory for PDF output out of 89155 (max. 10000000)
 

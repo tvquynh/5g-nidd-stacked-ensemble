@@ -91,14 +91,14 @@ multi-access edge computing (MEC)---more exposed than its 4G predecessor.
 Encryption alone does not stop volumetric flooding, scanning, or
 low-and-slow denial of service, and operators routinely call for in-line
 classifiers that detect malicious flows on the data path with budgets in
-the tens of microseconds per flow~\cite{samarakoon2022_5gnidd,samarakoon2025_lightweight_5gddos}.
+the tens of microseconds per flow~\cite{samarakoon2022_5gnidd,javid2025_nidd_lightweight}.
 The public 5G-NIDD benchmark~\cite{samarakoon2022_5gnidd,siriwardhana2025_5gnidd_iddd}
 was assembled to drive progress on exactly this regime: it captures over
 1.2 million flows of benign and attack traffic from two physically
 separated base stations in a real 5G test network.
 
-The fast-moving literature on 5G-NIDD~\cite{toupas2025_deeptransids,
-ksibi2024_dtl5g,shi2024_5g_ddos_cnn_lstm,ahmed2023_dsem} pushes accuracy
+The fast-moving literature on 5G-NIDD~\cite{harshdeep2025_deeptransids,
+farzaneh2024_dtl5g,ilias2025_cnn_moe,enids_2024} pushes accuracy
 with deep architectures---transformers, CNN--LSTM hybrids, and deeply
 stacked neural classifiers---that report macro-F1 values approaching
 unity on the random split. These gains, however, come with parameter
@@ -149,15 +149,17 @@ are commonly used cross-domain baselines; we focus on 5G-NIDD because of
 its native 5G radio-plane provenance.
 
 \textbf{Deep learning on 5G-NIDD.} Recent work pushes accuracy with deep
-architectures. Toupas et al.~\cite{toupas2025_deeptransids} report a
-transformer-based detector specialised for DDoS variants. Ksibi et
-al.~\cite{ksibi2024_dtl5g} apply deep transfer learning to bridge across
-related benchmarks. Shi et al.~\cite{shi2024_5g_ddos_cnn_lstm} combine
-CNN--LSTM hybrids with a mixture of experts. Samarakoon et
-al.~\cite{samarakoon2025_lightweight_5gddos} propose lightweight deep
-models for DDoS mitigation, and Ahmed et al.~\cite{ahmed2023_dsem}
-introduce DSEM-NIDS, a deeply stacked neural ensemble validated across
-multiple network benchmarks including 5G-NIDD. Our work differs in two
+architectures. Harshdeep et al.~\cite{harshdeep2025_deeptransids} report
+a transformer-based detector specialised for DDoS variants on 5G-NIDD.
+Farzaneh et al.~\cite{farzaneh2024_dtl5g} apply deep transfer learning,
+including BiLSTM and Inception base models, to detect DDoS attacks on
+5G and beyond networks. Ilias et al.~\cite{ilias2025_cnn_moe} combine
+convolutional networks with a sparsely gated mixture of experts. Javid
+et al.~\cite{javid2025_nidd_lightweight} propose a lightweight intrusion
+detection model for DDoS mitigation in 5G and beyond, and Pham et
+al.~\cite{enids_2024} introduce ENIDS, a deep-learning ensemble framework
+for network intrusion detection validated across multiple benchmarks.
+Our work differs in two
 respects: (i) we adopt a heterogeneous \emph{shallow} stack (boosted
 trees + MLP $\rightarrow$ logistic regression) instead of a deep stack
 of neural blocks, and (ii) we explicitly profile per-sample latency and
@@ -192,15 +194,20 @@ class labels were re-scanned or revised.
 \textbf{Evaluation regimes.} We adopt two complementary splits.
 \emph{Random} is a stratified 80/20 split on the multi-class label and
 represents the in-distribution upper bound. \emph{Cross-station}
-BS1$\rightarrow$BS2 trains on BS1 flows and evaluates on BS2 flows, with
-both endpoints stratified-rebalanced to size
-$\min\bigl(\lvert\text{BS1}_c\rvert, \lvert\text{BS2}_c\rvert\bigr)$ per
-class $c$ to remove prior shift. Classes for which either
-$\lvert\text{BS1}_c\rvert$ or $\lvert\text{BS2}_c\rvert$ is zero are
-excluded from the rebalanced subset (in 5G-NIDD all nine labels appear in
-both stations, so no class is silently dropped in practice). The
-residual gap therefore measures true generalisation across two
-physically distinct radio cells.
+BS1$\rightarrow$BS2 trains on BS1 flows and evaluates on BS2 flows. For
+each class $c$, both station-specific subsets are subsampled to
+$\min\bigl(\lvert\text{BS1}_c\rvert, \lvert\text{BS2}_c\rvert\bigr)$
+records so the per-station support of class $c$ is matched and station-
+to-station prior shift inside class $c$ is removed. This matching
+equalises each class \emph{across stations} but does \emph{not} force a
+uniform prior across the nine labels themselves; weighted metrics
+therefore remain sensitive to the residual class-support distribution.
+Classes for which either $\lvert\text{BS1}_c\rvert$ or
+$\lvert\text{BS2}_c\rvert$ is zero are excluded from the rebalanced
+subset; in 5G-NIDD all nine labels appear in both stations, so no class
+is silently dropped in practice. The residual gap therefore measures
+cross-cell generalisation after the class-prior shift has been
+controlled.
 
 \section{Method}
 \label{sec:method}
@@ -268,9 +275,12 @@ $\tilde{F}_1$ is the median macro-F1 under the same seed distribution.
 \label{sec:setup}
 
 \textbf{Hardware.} All training, inference, and latency profiling run on
-a single Linux host with 60 CPU cores (Xeon Gold) and 256\,GB of RAM,
-with no GPU. Reported numbers therefore correspond directly to a
-CPU-only deployment scenario.
+a single Linux host with two Intel Xeon Gold 6130 CPUs (60 logical
+cores in total) and 256\,GB of RAM, with no GPU. Reported numbers
+therefore correspond directly to a CPU-only deployment scenario; we do
+not control CPU affinity or NUMA placement, so the medians should be
+read as controlled-server estimates rather than hard real-time
+guarantees.
 
 \textbf{Software.} Python 3.10, scikit-learn~1.7.2, LightGBM~4.6.0,
 XGBoost~3.2.0, NumPy~2.2.6, pandas~2.3.3. Exact pins are in the
@@ -299,19 +309,24 @@ the L-BFGS solver, and \texttt{n\_jobs}=$-1$. All choices are pinned in
 
 \subsection{Classification Quality}
 
-Table~\ref{tab:main} reports macro-F1, weighted-F1, binary-F1, and the
-binary false-positive rate (FPR) across the four model variants and the
-two splits. Under the stratified random split all models exceed
-macro-F1 of 0.998, leaving a vanishingly small margin for further
-improvement; the stacked ensemble matches the strongest single base
-(XGBoost) at 0.999. Under the cross-station split BS1$\rightarrow$BS2
-the four methods diverge. The MLP becomes the strongest single
-classifier with macro-F1 0.940$\pm$0.013 and binary-F1 0.957$\pm$0.020,
-substantially ahead of both gradient-boosted tree variants
-(macro-F1 0.93, binary-F1 0.887). The stacked ensemble lands at
-macro-F1 0.933$\pm$0.0002 and binary-F1 0.887---between the trees and
-the MLP on the mean but with the tightest inter-seed variance by an
-order of magnitude. The logistic-regression meta-learner inherits the
+Table~\ref{tab:main} reports macro-F1, binary attack recall
+(binary-TPR), binary-F1, and the binary false-positive rate (binary
+FPR) across the four model variants and the two splits. Under the
+stratified random split all models exceed macro-F1 of 0.998, leaving a
+vanishingly small margin for further improvement; the stacked ensemble
+matches the strongest single base (XGBoost) at 0.999. Under the
+cross-station split BS1$\rightarrow$BS2 the four methods diverge. The
+MLP becomes the strongest single classifier with macro-F1
+0.940$\pm$0.013, binary-F1 0.957$\pm$0.020, and binary-TPR
+0.919$\pm$0.037, substantially ahead of both gradient-boosted tree
+variants (macro-F1 0.93, binary-F1 0.887, binary-TPR 0.80). The
+12-percentage-point attack-recall advantage of the MLP over the trees
+is the operationally most consequential gap in this table. The stacked ensemble lands
+at macro-F1 0.933$\pm$0.0002 and binary-F1 0.887---between the trees
+and the MLP on the mean but with the tightest inter-seed variance by
+an order of magnitude. The MLP's binary-F1 advantage is therefore
+\emph{recall-driven}: it misses fewer attacks at a comparable false-
+positive rate. The logistic-regression meta-learner inherits the
 shared tree-bias on the cross-station classes and does not recover the
 MLP's transferable representation.
 
@@ -334,14 +349,17 @@ $O(K^2)$ softmax over the meta features; the resulting frontier point
 sits to the right of the bases on the latency axis but at least as high
 on the accuracy axis, allowing operators to pick by constraint.
 
-\begin{figure}[!t]
+\begin{figure*}[!t]
 \centering
-\includegraphics[width=0.95\columnwidth]{figures/fig2_pareto_latency_accuracy.pdf}
-\caption{Latency--accuracy Pareto frontier at batch size~256 on the
-random split. Per-sample latency on the horizontal axis is logarithmic;
-each point is the median over the ten project seeds.}
+\includegraphics[width=0.95\textwidth]{figures/fig2_pareto_latency_accuracy.pdf}
+\caption{Latency--accuracy Pareto operating points at batch size~256 on
+(a) the stratified random split and (b) the cross-station
+BS1$\rightarrow$BS2 split. Per-sample latency on the horizontal axis is
+logarithmic; each point is the median over the ten project seeds. The
+random panel is near-saturated; the cross-station panel exposes the
+operational gap between MLP and the tree-based learners.}
 \label{fig:pareto}
-\end{figure}
+\end{figure*}
 
 \begin{figure}[!t]
 \centering
@@ -431,8 +449,8 @@ publishes the full machine-readable mapping in
 \texttt{results/summary\_means.csv} and \texttt{results/latency\_summary.csv}.
 
 \textbf{Positioning vs deep detectors.}
-Recent deep detectors on 5G-NIDD~\cite{toupas2025_deeptransids,ahmed2023_dsem,
-shi2024_5g_ddos_cnn_lstm} pursue peak accuracy with transformer and
+Recent deep detectors on 5G-NIDD~\cite{harshdeep2025_deeptransids,enids_2024,
+ilias2025_cnn_moe} pursue peak accuracy with transformer and
 deeply stacked architectures; we deliberately target the lightweight
 end of the spectrum where boosted trees and a two-layer MLP can be
 deployed on a commodity CPU. Direct numerical comparison with those

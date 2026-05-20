@@ -109,27 +109,43 @@ def fig_f1_bars(summary_means: pd.DataFrame, out: Path):
 
 
 def fig_pareto(summary: pd.DataFrame, latency: pd.DataFrame, out: Path,
-               split: str = "random", batch_size: int = 256):
-    sub_acc = summary[(summary["split"] == split) & (~summary["smoke"].astype(bool))]
-    sub_lat = latency[(latency["split"] == split) & (latency["batch_size"] == batch_size)]
+               batch_size: int = 256):
+    """Two-panel Pareto: (a) random and (b) cross-station BS1->BS2.
 
-    fig, ax = plt.subplots(figsize=(3.5, 2.6))
-    for m in ["lightgbm", "xgboost", "mlp", "stacked"]:
-        f1_vals = sub_acc[sub_acc["model"] == m]["macro_f1"].dropna().values
-        lat_vals = sub_lat[sub_lat["model"] == m]["per_sample_us"].dropna().values
-        if len(f1_vals) == 0 or len(lat_vals) == 0:
-            continue
-        f1 = float(np.median(f1_vals))
-        lat = float(np.median(lat_vals))
-        marker, ls = MODEL_MARKER[m]
-        ax.scatter([lat], [f1], s=70, marker=marker, color=MODEL_COLOR[m],
-                   edgecolor=PALETTE["headline"], linewidth=0.6,
-                   label=MODEL_LABEL[m], zorder=3)
-    ax.set_xscale("log")
-    ax.set_xlabel(f"Per-sample latency at batch={batch_size} (µs, log scale)")
-    ax.set_ylabel("Macro-F1 (median, 10 seeds)")
-    ax.set_ylim(0.95, 1.005)
-    ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.25), ncol=2, fontsize=7)
+    Random split is near-saturated (all macro-F1 above 0.998) but is shown
+    for completeness; the cross-station panel carries the operational
+    contribution because it captures the cross-cell generalisation gap.
+    """
+    fig, axes = plt.subplots(1, 2, figsize=(7.1, 2.6), sharex=False)
+    splits = [("random", "(a) Random split"),
+              ("cross_station", r"(b) Cross-station BS1$\rightarrow$BS2")]
+    handles_labels = None
+    for ax, (split, title) in zip(axes, splits):
+        sub_acc = summary[(summary["split"] == split) & (~summary["smoke"].astype(bool))]
+        sub_lat = latency[(latency["split"] == split) & (latency["batch_size"] == batch_size)]
+        for m in ["lightgbm", "xgboost", "mlp", "stacked"]:
+            f1_vals = sub_acc[sub_acc["model"] == m]["macro_f1"].dropna().values
+            lat_vals = sub_lat[sub_lat["model"] == m]["per_sample_us"].dropna().values
+            if len(f1_vals) == 0 or len(lat_vals) == 0:
+                continue
+            f1 = float(np.median(f1_vals))
+            lat = float(np.median(lat_vals))
+            marker, _ = MODEL_MARKER[m]
+            ax.scatter([lat], [f1], s=70, marker=marker, color=MODEL_COLOR[m],
+                       edgecolor=PALETTE["headline"], linewidth=0.6,
+                       label=MODEL_LABEL[m], zorder=3)
+        ax.set_xscale("log")
+        ax.set_xlabel("Per-sample latency at batch={} (µs, log)".format(batch_size))
+        ax.set_title(title, fontsize=9)
+        if split == "random":
+            ax.set_ylim(0.997, 1.0005)
+            ax.set_ylabel("Macro-F1 (median, 10 seeds)")
+        else:
+            ax.set_ylim(0.92, 0.95)
+        if handles_labels is None:
+            handles_labels = ax.get_legend_handles_labels()
+    fig.legend(*handles_labels, loc="upper center", bbox_to_anchor=(0.5, -0.02),
+               ncol=4, fontsize=7)
     fig.tight_layout()
     fig.savefig(out, dpi=400, bbox_inches="tight")
     plt.close(fig)
@@ -216,7 +232,7 @@ def main():
 
     fig_f1_bars(means, fig_dir / "fig1_f1_by_model_split.pdf")
     fig_pareto(summary, latency, fig_dir / "fig2_pareto_latency_accuracy.pdf",
-               split="random", batch_size=256)
+               batch_size=256)
     fig_throughput_curves(latency, fig_dir / "fig3_throughput_vs_batch.pdf", split="random")
     fig_per_class_f1(out_root / "metrics", classes,
                      fig_dir / "fig4_per_class_f1_cross_station.pdf",

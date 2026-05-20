@@ -42,7 +42,7 @@ def table_main(means: pd.DataFrame, out: Path):
               ("cross_station", 1, r"Cross-station (BS1$\rightarrow$BS2)")]
     metric_cols = [
         ("macro_f1", "Macro-F1"),
-        ("weighted_f1", "Weighted-F1"),
+        ("binary_recall", "Binary-TPR"),
         ("binary_f1", "Binary-F1"),
         ("binary_fpr", "Binary FPR"),
     ]
@@ -53,8 +53,8 @@ def table_main(means: pd.DataFrame, out: Path):
     lines.append(r"\caption{Classification quality on the 5G-NIDD multi-class task. "
                  r"Mean$\pm$std over the 10 project seeds "
                  r"\{42, 123, 456, 789, 1011, 2026, 3141, 4242, 5555, 6789\}. "
-                 r"\emph{Binary-F1} treats the Benign class as the negative class and the eight attack families as the positive class; "
-                 r"\emph{Binary FPR} = FP / (FP + TN) under the same binary collapse.}")
+                 r"\emph{Binary-TPR} (attack recall), \emph{Binary-F1}, and \emph{Binary FPR} are computed after collapsing the eight attack families into a single positive class against Benign; "
+                 r"$\textit{Binary FPR}$ = FP / (FP + TN).}")
     lines.append(r"\label{tab:main}")
     lines.append(r"\begin{tabular}{ll" + "c" * len(metric_cols) + r"}")
     lines.append(r"\toprule")
@@ -95,17 +95,18 @@ def table_latency(latency: pd.DataFrame, out: Path, split: str = "random"):
     bs_list = [1, 256, 4096]
     sub = latency[latency["split"] == split]
     lines = []
-    lines.append(r"\begin{table}[!t]")
+    lines.append(r"\begin{table*}[!t]")
+    lines.append(r"\setlength{\tabcolsep}{4pt}")
     lines.append(r"\centering")
-    lines.append(r"\caption{Inference latency on a 60-core, 256\,GB-RAM CPU server. "
-                 r"Median over 10 seeds and 10 timing repetitions; lower is faster.}")
+    lines.append(r"\caption{Inference latency on an Intel Xeon Gold 6130 CPU server (60 cores, 256\,GB RAM). "
+                 r"Median over 10 seeds and 10 timing repetitions per cell; throughput is samples per second, abbreviated $k = 10^{3}$.}")
     lines.append(r"\label{tab:latency}")
-    lines.append(r"\begin{tabular}{l" + "c" * (len(bs_list) * 2) + r"}")
+    lines.append(r"\begin{tabular}{l" + "rr" * len(bs_list) + r"}")
     lines.append(r"\toprule")
     parts = ["Model"]
     for bs in bs_list:
-        parts.append(rf"$\mu$s/flow @\,b={bs}")
-        parts.append(rf"thr./sec @\,b={bs}")
+        parts.append(rf"$\mu$s/flow $b\,{{=}}\,{bs}$")
+        parts.append(rf"thr./s $b\,{{=}}\,{bs}$")
     lines.append(" & ".join(parts) + r" \\")
     lines.append(r"\midrule")
 
@@ -117,12 +118,15 @@ def table_latency(latency: pd.DataFrame, out: Path, split: str = "random"):
                 cells.append("--"); cells.append("--"); continue
             us = float(np.median(row["per_sample_us"].dropna().values))
             thr = float(np.median(row["throughput_samples_per_sec"].dropna().values))
-            cells.append(f"{us:.1f}")
-            cells.append(f"{thr/1e3:.1f}k")
+            cells.append(f"{us:.1f}" if us < 1e4 else f"{us:.0f}")
+            if thr >= 1e3:
+                cells.append(f"{thr/1e3:.1f}\\,k")
+            else:
+                cells.append(f"{thr:.0f}")
         lines.append(" & ".join(cells) + r" \\")
     lines.append(r"\bottomrule")
     lines.append(r"\end{tabular}")
-    lines.append(r"\end{table}")
+    lines.append(r"\end{table*}")
     out.write_text("\n".join(lines), encoding="utf-8")
     print(f"[tab] {out}")
 

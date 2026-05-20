@@ -27,35 +27,37 @@ S.~Samarakoon, Y.~Siriwardhana, P.~Porambage, M.~Liyanage, S.-Y. Chang, J.~Kim,
   detection dataset generated over {5G} wireless network,'' \emph{arXiv
   preprint arXiv:2212.01298}, 2022.
 
-\bibitem{samarakoon2025_lightweight_5gddos}
-S.~Samarakoon \emph{et~al.}, ``{NIDD}-enabled lightweight intrusion detection
-  for effective {DDoS} mitigation in {5G} and beyond,'' \emph{Scientific
-  Reports}, 2025.
+\bibitem{javid2025_nidd_lightweight}
+I.~Javid, S.~Khara, J.~Frnda \emph{et~al.}, ``{NIDD}-enabled lightweight
+  intrusion detection for effective {DDoS} mitigation in {5G} and beyond,''
+  \emph{Scientific Reports}, 2025.
 
 \bibitem{siriwardhana2025_5gnidd_iddd}
 Y.~Siriwardhana, S.~Samarakoon, P.~Porambage, M.~Liyanage, and M.~Ylianttila,
   ``{5G-NIDD}: A real-network intrusion detection dataset generated over a {5G}
   wireless network,'' \emph{IEEE Data Descriptions}, vol.~2, 2025.
 
-\bibitem{toupas2025_deeptransids}
-P.~Toupas, C.~Stylianopoulos, D.~Chatzakou, S.~Vrochidis, and I.~Kompatsiaris,
-  ``{DeepTransIDS}: Transformer-based deep learning model for detecting {DDoS}
-  attacks on {5G NIDD},'' \emph{Array}, 2025.
+\bibitem{harshdeep2025_deeptransids}
+K.~Harshdeep, S.~Konatham, and R.~Mathur, ``{DeepTransIDS}: Transformer-based
+  deep learning model for detecting {DDoS} attacks on {5G NIDD},''
+  \emph{Results in Engineering}, vol.~26, p. 104826, 2025.
 
-\bibitem{ksibi2024_dtl5g}
-A.~Ksibi \emph{et~al.}, ``{DTL-5G}: Deep transfer learning-based {DDoS} attack
-  detection in {5G} and beyond networks,'' \emph{Computer Communications},
-  2024.
+\bibitem{farzaneh2024_dtl5g}
+B.~Farzaneh, N.~Shahriar, A.~H. Al~Muktadir, M.~S. Towhid, and M.~S.
+  Khosravani, ``{DTL-5G}: Deep transfer learning-based {DDoS} attack detection
+  in {5G} and beyond networks,'' \emph{Computer Communications}, vol. 228, p.
+  107927, 2024.
 
-\bibitem{shi2024_5g_ddos_cnn_lstm}
-L.~Shi \emph{et~al.}, ``Convolutional neural networks and mixture of experts
-  for intrusion detection in 5g networks and beyond,'' \emph{Scientific
-  Reports}, 2024.
+\bibitem{ilias2025_cnn_moe}
+L.~Ilias, G.~Doukas, V.~Lamprou, C.~Ntanos, and D.~Askounis, ``Convolutional
+  neural networks and mixture of experts for intrusion detection in {5G}
+  networks and beyond,'' \emph{Frontiers in Artificial Intelligence}, 2025,
+  arXiv preprint arXiv:2412.03483, 2024.
 
-\bibitem{ahmed2023_dsem}
-M.~Ahmed \emph{et~al.}, ``{DSEM-NIDS}: A deep-stacked ensemble model based
-  network intrusion detection system using {5G-NIDD}, {UNR-IDD}, {N-BaIoT}, and
-  {NSL-KDD},'' \emph{Computers and Electrical Engineering}, 2024.
+\bibitem{enids_2024}
+T.-H. Pham \emph{et~al.}, ``{ENIDS}: A deep learning-based ensemble framework
+  for network intrusion detection systems,'' \emph{IEEE Transactions on Network
+  and Service Management}, 2024.
 
 \bibitem{hettich1999_kddcup99}
 S.~Hettich and S.~D. Bay, ``The {UCI KDD} archive: {KDD} cup 1999 data,''
