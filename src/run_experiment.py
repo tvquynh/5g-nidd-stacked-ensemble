@@ -148,7 +148,8 @@ def main():
         out_dir = Path(paths["results"]) / "metrics"
         out_dir.mkdir(parents=True, exist_ok=True)
         suffix = f"_bs{args.train_bs}" if args.split == "cross_station" else ""
-        fname = f"{args.model}_{args.split}{suffix}_seed{args.seed}.json"
+        smoke_suffix = "_smoke" if args.smoke else ""
+        fname = f"{args.model}_{args.split}{suffix}_seed{args.seed}{smoke_suffix}.json"
         out_path = out_dir / fname
 
     out_path.write_text(json.dumps(numpy_to_python(metrics), indent=2))

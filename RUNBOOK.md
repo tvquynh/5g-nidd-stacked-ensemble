@@ -24,7 +24,7 @@ to rebuild it from the 5G-NIDD `Encoded.csv` distribution.
 
 ```bash
 bash scripts/smoke.sh
-ls results/metrics/ | grep _smoke -c  # expect 5 files
+ls results/metrics/*_smoke.json | wc -l  # expect 5 files
 ```
 
 Pass criterion: every JSON shows `macro_f1 > 0.85` on the 30k subset. If a
