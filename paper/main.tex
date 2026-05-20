@@ -61,12 +61,14 @@ meta-learner. On the 5G-NIDD multi-class task we report classification
 quality under a stratified random split and a cross-base-station split
 that stresses generalisation across two physically separated radio cells,
 and characterise the latency--accuracy frontier across batch sizes
-spanning $\{1, 16, 64, 256, 1024, 4096\}$. The stacked ensemble matches
-or improves the best single base learner on macro-F1 while remaining
-practical for CPU-only deployment in the user-plane function (UPF) or
-multi-access edge computing (MEC) tier. We make the artefact reviewer-runnable
-and release a deployment recommendation table that maps operating points
-(latency budget, accuracy floor) to the configuration that meets them.
+spanning $\{1, 16, 64, 256, 1024, 4096\}$. We find that the multi-layer
+perceptron is the strongest single base learner on the cross-station
+split, and that the stacked ensemble preserves or modestly improves on
+that ceiling while remaining tractable for CPU-only deployment in the
+user-plane function (UPF) or multi-access edge computing (MEC) tier. We
+make the artefact reviewer-runnable and release a deployment
+recommendation table that maps operating points (latency budget,
+accuracy floor) to the configuration that meets them.
 \end{abstract}
 
 \begin{IEEEkeywords}
