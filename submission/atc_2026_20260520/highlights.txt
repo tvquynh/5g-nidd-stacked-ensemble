@@ -1,6 +1,0 @@
-- Heterogeneous shallow stacked ensemble (LightGBM + XGBoost + MLP -> logistic-regression meta-learner) for 5G network intrusion detection on 5G-NIDD.
-- Leakage-free out-of-fold cross-validated probability stacking; explicit guard against the "stacker fits the training residuals" leak.
-- Two evaluation regimes: stratified random split (in-distribution upper bound) and cross-base-station split BS1->BS2 with per-class prior rebalance.
-- In-depth latency-accuracy Pareto analysis across batch sizes {1, 16, 64, 256, 1024, 4096} on a commodity 60-core CPU host.
-- Three-tier deployment recommendation table: latency-critical / balanced edge / accuracy-first analytics.
-- Reviewer-runnable artefact: single-command reproduction of every figure and table, MIT-licensed, Zenodo DOI on acceptance.

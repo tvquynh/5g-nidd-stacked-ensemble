@@ -25,3 +25,5 @@ logs/
 # OS
 .DS_Store
 Thumbs.db
+submission/atc_2026_*/
+submission/atc_2026_*.zip
