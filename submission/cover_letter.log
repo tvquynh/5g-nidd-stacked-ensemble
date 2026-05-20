@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.4.28)  20 MAY 2026 16:22
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.4.28)  20 MAY 2026 16:29
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -406,7 +406,7 @@ s/admin.local/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}{C:/Us
 ers/admin.local/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}
 {C:/Users/admin.local/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.en
 c}{C:/Users/admin.local/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mat
-hit.enc}] [2] (cover_letter.aux)
+hit.enc}] (cover_letter.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
@@ -415,13 +415,13 @@ Package rerunfilecheck Info: File `cover_letter.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 10374 strings out of 467871
- 167979 string characters out of 5415472
- 623850 words of memory out of 5000000
+ 10370 strings out of 467871
+ 167943 string characters out of 5415472
+ 622850 words of memory out of 5000000
  39108 multiletter control sequences out of 15000+600000
- 656715 words of font info for 82 fonts, out of 8000000 for 9000
+ 656632 words of font info for 81 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 69i,5n,79p,1011b,448s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 69i,5n,79p,1011b,447s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/admin.local/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmb
 x10.pfb><C:/Users/admin.local/AppData/Local/Programs/MiKTeX/fonts/type1/public/
 lm/lmbxi10.pfb><C:/Users/admin.local/AppData/Local/Programs/MiKTeX/fonts/type1/
@@ -429,9 +429,9 @@ public/lm/lmmi10.pfb><C:/Users/admin.local/AppData/Local/Programs/MiKTeX/fonts/
 type1/public/lm/lmr10.pfb><C:/Users/admin.local/AppData/Local/Programs/MiKTeX/f
 onts/type1/public/lm/lmri10.pfb><C:/Users/admin.local/AppData/Local/Programs/Mi
 KTeX/fonts/type1/public/lm/lmsy10.pfb>
-Output written on cover_letter.pdf (2 pages, 119005 bytes).
+Output written on cover_letter.pdf (1 page, 117678 bytes).
 PDF statistics:
- 60 PDF objects out of 1000 (max. 8388607)
- 8 named destinations out of 1000 (max. 500000)
+ 53 PDF objects out of 1000 (max. 8388607)
+ 6 named destinations out of 1000 (max. 500000)
  14337 words of extra memory for PDF output out of 14400 (max. 10000000)
 

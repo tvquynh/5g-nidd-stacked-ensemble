@@ -68,11 +68,11 @@ else
     warn "CITATION.cff has author names visible (acceptable for single-blind venues)"
 fi
 
-# 10. AI disclosure in manuscript
+# 10. AI disclosure in manuscript (removed at NCS direction 2026-05-20 for ATC; warn-only)
 if grep -q "generative AI" paper/main.tex; then
     pass "AI use disclosure present in manuscript"
 else
-    fail "AI use disclosure missing in manuscript"
+    warn "AI use disclosure absent (removed at author's request; verify ATC/IEEE policy permits omission)"
 fi
 
 echo
