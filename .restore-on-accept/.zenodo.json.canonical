@@ -8,11 +8,6 @@
       "orcid": "0000-0003-3934-1067"
     },
     {
-      "name": "Trinh, Van-Quynh",
-      "affiliation": "Information Security Technology Lab, Posts and Telecommunications Institute of Technology (PTIT), Vietnam",
-      "orcid": "0009-0006-0514-6123"
-    },
-    {
       "name": "Huynh, De-Thu",
       "affiliation": "School of Computer Science & Engineering, The Saigon International University (SIU), Vietnam",
       "orcid": "0000-0002-1227-0281"
@@ -21,6 +16,11 @@
       "name": "Le, Ngoc-Hieu",
       "affiliation": "Information Security Technology Lab, Posts and Telecommunications Institute of Technology (PTIT), Vietnam",
       "orcid": "0009-0005-4869-9003"
+    },
+    {
+      "name": "Trinh, Van-Quynh",
+      "affiliation": "Information Security Technology Lab, Posts and Telecommunications Institute of Technology (PTIT), Vietnam",
+      "orcid": "0009-0006-0514-6123"
     }
   ],
   "access_right": "open",
