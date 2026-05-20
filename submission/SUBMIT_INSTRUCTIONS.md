@@ -30,8 +30,12 @@ Step-by-step actions for the corresponding author to submit the manuscript.
 
 - [ ] Re-read the manuscript end-to-end once for typos and reference-numbering errors.
 - [ ] Confirm the author list, affiliations, ORCID identifiers, and corresponding e-mail.
-  (Author list is currently set to the PhD-team placeholder per the supporting author's note;
-  the colleague taking ownership should overwrite it before submission.)
+  (The author list now mirrors the team's P18 JISA submission of 2026-04-29:
+  Trong-Thua Huynh (1st, PTIT, thuaht@ptit.edu.vn), Van-Quynh Trinh (2nd, PTIT,
+  quynhtv@ptithcm.edu.vn, **corresponding**), De-Thu Huynh (3rd, The Saigon
+  International University, huynhdethu@siu.edu.vn), Ngoc-Hieu Le (4th, PTIT,
+  hieuln@ptithcm.edu.vn). The colleague taking ownership should still verify the
+  list before EDAS upload.)
 - [ ] Confirm the funding statement (PTIT) and the AI-use disclosure in the Acknowledgments.
 - [ ] Verify the four figures embed correctly in the compiled PDF and that the IEEE conference template was used.
 - [ ] Verify the page count is at most 6 pages including references.

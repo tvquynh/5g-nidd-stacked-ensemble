@@ -37,6 +37,8 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-B}}Latency--Accuracy Pareto Frontier}{3}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-C}}Per-Class Behaviour Under Cross-Station Shift}{3}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-D}}Overall Quality Summary}{3}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {VII}Discussion: Deployment Operating Points}{3}{}\protected@file@percent }
+\newlabel{sec:discussion}{{VII}{3}{}{section.7}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {I}{\ignorespaces Classification quality on the 5G-NIDD multi-class task. Mean$\pm $std over the 10 project seeds \{42, 123, 456, 789, 1011, 2026, 3141, 4242, 5555, 6789\}. \emph  {Binary-TPR} (attack recall), \emph  {Binary-F1}, and \emph  {Binary FPR} are computed after collapsing the eight attack families into a single positive class against Benign; $\textit  {Binary FPR}$ = FP / (FP + TN).}}{4}{}\protected@file@percent }
 \newlabel{tab:main}{{I}{4}{}{table.1}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Latency--accuracy Pareto operating points at batch size~256 on (a) the stratified random split and (b) the cross-station BS1$\rightarrow $BS2 split. Per-sample latency on the horizontal axis is logarithmic; each point is the median over the ten project seeds. The random panel is near-saturated; the cross-station panel exposes the operational gap between MLP and the tree-based learners.}}{4}{}\protected@file@percent }
@@ -45,8 +47,6 @@
 \newlabel{tab:latency}{{II}{4}{}{table.2}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {III}{\ignorespaces Per-class F1 on cross-station BS1$\rightarrow $BS2 (median over 10 seeds). The MLP excels on the volumetric classes (Benign, UDPFlood) while the gradient-boosted trees and the stacked ensemble dominate the application-layer DoS classes.}}{4}{}\protected@file@percent }
 \newlabel{tab:perclass}{{III}{4}{}{table.3}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {VII}Discussion: Deployment Operating Points}{4}{}\protected@file@percent }
-\newlabel{sec:discussion}{{VII}{4}{}{section.7}{}}
 \citation{harshdeep2025_deeptransids,enids_2024,ilias2025_cnn_moe}
 \@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Inference throughput against batch size on the random split. Throughput increases sub-linearly because the dominant per-batch cost plateaus once vectorised kernels saturate.}}{5}{}\protected@file@percent }
 \newlabel{fig:throughput}{{2}{5}{}{figure.2}{}}
@@ -56,6 +56,8 @@
 \newlabel{fig:f1_bars}{{4}{5}{}{figure.4}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {VIII}Threats to Validity}{5}{}\protected@file@percent }
 \newlabel{sec:threats}{{VIII}{5}{}{section.8}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {IX}Conclusion}{5}{}\protected@file@percent }
+\newlabel{sec:conclusion}{{IX}{5}{}{section.9}{}}
 \bibstyle{IEEEtran}
 \bibdata{refs}
 \bibcite{samarakoon2022_5gnidd}{1}
@@ -76,7 +78,5 @@
 \bibcite{ke2017_lightgbm}{16}
 \bibcite{chen2016_xgboost}{17}
 \bibcite{pedregosa2011_sklearn}{18}
-\@writefile{toc}{\contentsline {section}{\numberline {IX}Conclusion}{6}{}\protected@file@percent }
-\newlabel{sec:conclusion}{{IX}{6}{}{section.9}{}}
 \@writefile{toc}{\contentsline {section}{References}{6}{}\protected@file@percent }
 \gdef \@abspage@last{6}

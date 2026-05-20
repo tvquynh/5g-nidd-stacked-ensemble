@@ -3,23 +3,23 @@
   "description": "Reviewer-runnable code, configurations, and aggregation pipeline for the ATC 2026 submission on a heterogeneous shallow stacked ensemble for 5G-NIDD multi-class intrusion detection.",
   "creators": [
     {
-      "name": "Trinh, Van-Quynh",
-      "affiliation": "Posts and Telecommunications Institute of Technology (PTIT), Vietnam",
-      "orcid": "0009-0006-0514-6123"
-    },
-    {
       "name": "Huynh, Trong-Thua",
-      "affiliation": "Posts and Telecommunications Institute of Technology (PTIT), Vietnam",
+      "affiliation": "Posts and Telecommunications Institute of Technology (PTIT), Ho Chi Minh City, Vietnam",
       "orcid": "0000-0003-3934-1067"
     },
     {
+      "name": "Trinh, Van-Quynh",
+      "affiliation": "Posts and Telecommunications Institute of Technology (PTIT), Ho Chi Minh City, Vietnam",
+      "orcid": "0009-0006-0514-6123"
+    },
+    {
       "name": "Huynh, De-Thu",
-      "affiliation": "Saigon International University (SIU), Vietnam",
+      "affiliation": "The Saigon International University, Ho Chi Minh City, Vietnam",
       "orcid": "0000-0002-1227-0281"
     },
     {
       "name": "Le, Ngoc-Hieu",
-      "affiliation": "Posts and Telecommunications Institute of Technology (PTIT), Vietnam"
+      "affiliation": "Posts and Telecommunications Institute of Technology (PTIT), Ho Chi Minh City, Vietnam"
     }
   ],
   "access_right": "open",
