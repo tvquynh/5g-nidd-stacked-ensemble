@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.4.28)  20 MAY 2026 06:16
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.4.28)  20 MAY 2026 07:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -6,9 +6,7 @@ entering extended mode
 (main.tex
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
-
-(C:\Users\admin.local\AppData\Local\Programs\MiKTeX\tex/latex/ieeetran\IEEEtran
-.cls
+(IEEEtran.cls
 Document Class: IEEEtran 2015/08/26 V1.8b by Michael Shell
 -- See the "IEEEtran_HOWTO" manual for usage information.
 -- http://www.michaelshell.org/tex/ieeetran/
@@ -570,13 +568,13 @@ Overfull \hbox (174.67136pt too wide) in paragraph at lines 5--20
 File: figures/fig2_pareto_latency_accuracy.pdf Graphic file (type pdf)
 <use figures/fig2_pareto_latency_accuracy.pdf>
 Package pdftex.def Info: figures/fig2_pareto_latency_accuracy.pdf  used on inpu
-t line 296.
+t line 302.
 (pdftex.def)             Requested size: 239.39923pt x 159.63516pt.
 <figures/fig3_throughput_vs_batch.pdf, id=26, 245.2407pt x 156.83267pt>
 File: figures/fig3_throughput_vs_batch.pdf Graphic file (type pdf)
 <use figures/fig3_throughput_vs_batch.pdf>
 Package pdftex.def Info: figures/fig3_throughput_vs_batch.pdf  used on input li
-ne 305.
+ne 311.
 (pdftex.def)             Requested size: 239.39923pt x 153.09908pt.
  (tables/tab_latency.tex
 Overfull \hbox (255.97147pt too wide) in paragraph at lines 5--15
@@ -584,25 +582,25 @@ Overfull \hbox (255.97147pt too wide) in paragraph at lines 5--15
  []
 
 )
-<figures/fig4_per_class_f1_cross_station.pdf, id=27, 210.48637pt x 136.87938pt>
+<figures/fig4_per_class_f1_cross_station.pdf, id=27, 252.25555pt x 184.10393pt>
 
 File: figures/fig4_per_class_f1_cross_station.pdf Graphic file (type pdf)
 <use figures/fig4_per_class_f1_cross_station.pdf>
 Package pdftex.def Info: figures/fig4_per_class_f1_cross_station.pdf  used on i
-nput line 326.
-(pdftex.def)             Requested size: 239.39923pt x 155.68068pt.
+nput line 332.
+(pdftex.def)             Requested size: 239.39923pt x 174.72356pt.
  (tables/tab_per_class.tex
 Overfull \hbox (33.62071pt too wide) in paragraph at lines 5--15
  [][] 
  []
 
 )
-<figures/fig1_f1_by_model_split.pdf, id=28, 254.72923pt x 135.48204pt>
+<figures/fig1_f1_by_model_split.pdf, id=28, 254.59026pt x 135.48204pt>
 File: figures/fig1_f1_by_model_split.pdf Graphic file (type pdf)
 <use figures/fig1_f1_by_model_split.pdf>
 Package pdftex.def Info: figures/fig1_f1_by_model_split.pdf  used on input line
- 342.
-(pdftex.def)             Requested size: 239.39923pt x 127.33244pt.
+ 348.
+(pdftex.def)             Requested size: 239.39923pt x 127.40273pt.
  [3 <./figures/fig2_pareto_latency_accuracy.pdf> <./figures/fig3_throughput_vs_
 batch.pdf>] [4 <./figures/fig4_per_class_f1_cross_station.pdf> <./figures/fig1_
 f1_by_model_split.pdf>] (main.bbl)
@@ -617,9 +615,7 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[5
-
-] (main.aux)
+[5] (main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
@@ -627,10 +623,10 @@ L3 programming layer <2025-12-24>
  ) 
 Here is how much of TeX's memory you used:
  11610 strings out of 467871
- 250152 string characters out of 5415472
- 667577 words of memory out of 5000000
+ 250043 string characters out of 5415472
+ 668153 words of memory out of 5000000
  40018 multiletter control sequences out of 15000+600000
- 688131 words of font info for 346 fonts, out of 8000000 for 9000
+ 688247 words of font info for 347 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  73i,14n,80p,1003b,541s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/admin.local/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
@@ -654,9 +650,9 @@ ograms/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/admin.local/AppData/Lo
 cal/Programs/MiKTeX/fonts/type1/urw/times/utmbi8a.pfb><C:/Users/admin.local/App
 Data/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/admin.loc
 al/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (5 pages, 280575 bytes).
+Output written on main.pdf (5 pages, 290184 bytes).
 PDF statistics:
- 161 PDF objects out of 1000 (max. 8388607)
+ 155 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  67605 words of extra memory for PDF output out of 74296 (max. 10000000)
 

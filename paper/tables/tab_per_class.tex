@@ -6,9 +6,9 @@
 \toprule
 Model & Benign & HTTPFlood & ICMPFlood & SYNFlood & SYNScan & SlowrateDoS & TCPConnectScan & UDPFlood & UDPScan \\
 \midrule
-LightGBM & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
-XGBoost & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
-MLP & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+LightGBM & 0.691 & 0.974 & 0.995 & 1.000 & 0.997 & 0.957 & 0.997 & 0.783 & 0.996 \\
+XGBoost & 0.691 & 0.976 & 0.999 & 0.975 & 0.987 & 0.959 & 0.998 & 0.782 & 0.998 \\
+MLP & 0.835 & 0.845 & 1.000 & 0.998 & 0.997 & 0.892 & 0.998 & 0.882 & 0.998 \\
 Stacked ensemble (\textbf{proposed}) & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
 \bottomrule
 \end{tabular}

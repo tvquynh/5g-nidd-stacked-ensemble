@@ -268,12 +268,15 @@ solver. All choices are pinned in \texttt{configs/models.yaml}.
 Table~\ref{tab:main} reports macro-F1, weighted-F1, binary-F1, and the
 binary false-positive rate (FPR) across the four model variants and the
 two splits. Under the stratified random split all models exceed
-macro-F1 0.99, with the stacked ensemble matching or improving the best
-single base learner. Under the cross-station split BS1$\rightarrow$BS2
-the gap between methods widens: the stacked ensemble narrows the
-generalisation drop more than any single base learner, supporting the
-intuition that combining complementary inductive biases helps when the
-test distribution shifts.
+macro-F1 0.99, leaving a vanishingly small margin for further
+improvement. Under the cross-station split BS1$\rightarrow$BS2 the
+methods diverge: the MLP becomes the strongest single base learner,
+narrowing the drop between random and cross-station performance more
+than either gradient-boosted tree variant, and the stacked ensemble
+matches or exceeds the MLP while inheriting the trees' sharpness on the
+in-distribution classes. The pattern is consistent with the intuition
+that combining complementary inductive biases helps when the test
+distribution shifts.
 
 \input{tables/tab_main.tex}
 
