@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.4.28)  20 MAY 2026 07:22
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.4.28)  20 MAY 2026 12:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -492,14 +492,14 @@ nslations-basic-dictionary')
 )
 Package translations Info: loading dictionary `translations-basic-dictionary' f
 or `english'. on input line 18.
-LaTeX Font Info:    Calculating math sizes for size <11> on input line 32.
+LaTeX Font Info:    Calculating math sizes for size <11> on input line 49.
 
 (C:\Users\admin.local\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-cmr.
 cfg
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
 (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 32.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 49.
 
 
 (C:\Users\admin.local\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
@@ -509,7 +509,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 32.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 49.
 
 
 (C:\Users\admin.local\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
@@ -524,23 +524,23 @@ Users/admin.local/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}
 
 ]
 LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 1
-50.
+76.
 
 (C:\Users\admin.local\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
 LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 2
-28.
+54.
 (C:\Users\admin.local\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
-)
-Underfull \hbox (badness 10000) in paragraph at lines 250--254
+) [2]
+Underfull \hbox (badness 10000) in paragraph at lines 276--280
 []\OT1/ptm/b/n/10 (+20) Seeds. \OT1/ptm/m/n/10 (+20) We use the ten project see
 ds
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 250--254
+Underfull \hbox (badness 10000) in paragraph at lines 276--280
 \OMS/cmsy/m/n/10 f\OT1/cmr/m/n/10 42\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 123\OML/
 cmm/m/it/10 ; \OT1/cmr/m/n/10 456\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 789\OML/cmm
 /m/it/10 ; \OT1/cmr/m/n/10 1011\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 2026\OML/cmm/
@@ -549,7 +549,7 @@ m/it/10 ; \OT1/cmr/m/n/10 3141\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 4242\OML/cmm/m
 /n/10 g$
  []
 
-[2] (tables/tab_main.tex
+(tables/tab_main.tex
 LaTeX Font Info:    Trying to load font information for OMS+ptm on input line 3
 .
 
@@ -564,46 +564,48 @@ Overfull \hbox (174.67136pt too wide) in paragraph at lines 5--20
  []
 
 )
-<figures/fig2_pareto_latency_accuracy.pdf, id=25, 246.23215pt x 164.18513pt>
+<figures/fig2_pareto_latency_accuracy.pdf, id=26, 247.71725pt x 164.18513pt>
 File: figures/fig2_pareto_latency_accuracy.pdf Graphic file (type pdf)
 <use figures/fig2_pareto_latency_accuracy.pdf>
 Package pdftex.def Info: figures/fig2_pareto_latency_accuracy.pdf  used on inpu
-t line 302.
-(pdftex.def)             Requested size: 239.39923pt x 159.63516pt.
-<figures/fig3_throughput_vs_batch.pdf, id=26, 245.2407pt x 156.83267pt>
+t line 331.
+(pdftex.def)             Requested size: 239.39923pt x 158.67815pt.
+<figures/fig3_throughput_vs_batch.pdf, id=27, 245.2407pt x 156.83267pt>
 File: figures/fig3_throughput_vs_batch.pdf Graphic file (type pdf)
 <use figures/fig3_throughput_vs_batch.pdf>
 Package pdftex.def Info: figures/fig3_throughput_vs_batch.pdf  used on input li
-ne 311.
+ne 340.
 (pdftex.def)             Requested size: 239.39923pt x 153.09908pt.
  (tables/tab_latency.tex
 Overfull \hbox (255.97147pt too wide) in paragraph at lines 5--15
  [][] 
  []
 
-)
-<figures/fig4_per_class_f1_cross_station.pdf, id=27, 252.25555pt x 184.10393pt>
+) [3 <./figures/fig2_pareto_latency_accuracy.pdf>]
+<figures/fig4_per_class_f1_cross_station.pdf, id=41, 251.92432pt x 184.10393pt>
 
 File: figures/fig4_per_class_f1_cross_station.pdf Graphic file (type pdf)
 <use figures/fig4_per_class_f1_cross_station.pdf>
 Package pdftex.def Info: figures/fig4_per_class_f1_cross_station.pdf  used on i
-nput line 332.
-(pdftex.def)             Requested size: 239.39923pt x 174.72356pt.
+nput line 367.
+(pdftex.def)             Requested size: 239.39923pt x 174.9511pt.
  (tables/tab_per_class.tex
 Overfull \hbox (33.62071pt too wide) in paragraph at lines 5--15
  [][] 
  []
 
 )
-<figures/fig1_f1_by_model_split.pdf, id=28, 254.59026pt x 135.48204pt>
+<figures/fig1_f1_by_model_split.pdf, id=42, 257.78998pt x 135.48204pt>
 File: figures/fig1_f1_by_model_split.pdf Graphic file (type pdf)
 <use figures/fig1_f1_by_model_split.pdf>
 Package pdftex.def Info: figures/fig1_f1_by_model_split.pdf  used on input line
- 348.
-(pdftex.def)             Requested size: 239.39923pt x 127.40273pt.
- [3 <./figures/fig2_pareto_latency_accuracy.pdf> <./figures/fig3_throughput_vs_
-batch.pdf>] [4 <./figures/fig4_per_class_f1_cross_station.pdf> <./figures/fig1_
-f1_by_model_split.pdf>] (main.bbl)
+ 384.
+(pdftex.def)             Requested size: 239.39923pt x 125.81918pt.
+
+Underfull \vbox (badness 1147) has occurred while \output is active []
+
+ [4 <./figures/fig3_throughput_vs_batch.pdf> <./figures/fig4_per_class_f1_cross
+_station.pdf> <./figures/fig1_f1_by_model_split.pdf>] (main.bbl [5])
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -615,20 +617,22 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[5] (main.aux)
+[6
+
+] (main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 11610 strings out of 467871
- 250043 string characters out of 5415472
- 668153 words of memory out of 5000000
+ 11651 strings out of 467871
+ 250391 string characters out of 5415472
+ 669306 words of memory out of 5000000
  40018 multiletter control sequences out of 15000+600000
- 688247 words of font info for 347 fonts, out of 8000000 for 9000
+ 690864 words of font info for 374 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 73i,14n,80p,1003b,541s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 73i,11n,80p,1003b,541s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/admin.local/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
 ts/cm/cmex10.pfb><C:/Users/admin.local/AppData/Local/Programs/MiKTeX/fonts/type
 1/public/amsfonts/cm/cmmi10.pfb><C:/Users/admin.local/AppData/Local/Programs/Mi
@@ -637,22 +641,25 @@ al/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/admin.loc
 al/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi9.pfb><C:/U
 sers/admin.local/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/c
 mr10.pfb><C:/Users/admin.local/AppData/Local/Programs/MiKTeX/fonts/type1/public
-/amsfonts/cm/cmr7.pfb><C:/Users/admin.local/AppData/Local/Programs/MiKTeX/fonts
-/type1/public/amsfonts/cm/cmr9.pfb><C:/Users/admin.local/AppData/Local/Programs
-/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/admin.local/AppData
-/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/admin
-.local/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><
-C:/Users/admin.local/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/
-cm/cmsy9.pfb><C:/Users/admin.local/AppData/Local/Programs/MiKTeX/fonts/type1/pu
-blic/amsfonts/symbols/msbm10.pfb><C:/Users/admin.local/AppData/Local/Programs/M
-iKTeX/fonts/type1/urw/courier/ucrr8a.pfb><C:/Users/admin.local/AppData/Local/Pr
-ograms/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/admin.local/AppData/Lo
-cal/Programs/MiKTeX/fonts/type1/urw/times/utmbi8a.pfb><C:/Users/admin.local/App
-Data/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/admin.loc
-al/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (5 pages, 290184 bytes).
+/amsfonts/cm/cmr6.pfb><C:/Users/admin.local/AppData/Local/Programs/MiKTeX/fonts
+/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/admin.local/AppData/Local/Programs
+/MiKTeX/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Users/admin.local/AppData/L
+ocal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/admin.
+local/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C
+:/Users/admin.local/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/c
+m/cmsy7.pfb><C:/Users/admin.local/AppData/Local/Programs/MiKTeX/fonts/type1/pub
+lic/amsfonts/cm/cmsy8.pfb><C:/Users/admin.local/AppData/Local/Programs/MiKTeX/f
+onts/type1/public/amsfonts/cm/cmsy9.pfb><C:/Users/admin.local/AppData/Local/Pro
+grams/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb><C:/Users/admin.loc
+al/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb><C:/Users/a
+dmin.local/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/U
+sers/admin.local/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmbi8a.pf
+b><C:/Users/admin.local/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utm
+r8a.pfb><C:/Users/admin.local/AppData/Local/Programs/MiKTeX/fonts/type1/urw/tim
+es/utmri8a.pfb>
+Output written on main.pdf (6 pages, 316370 bytes).
 PDF statistics:
- 155 PDF objects out of 1000 (max. 8388607)
+ 169 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 67605 words of extra memory for PDF output out of 74296 (max. 10000000)
+ 69653 words of extra memory for PDF output out of 74296 (max. 10000000)
 

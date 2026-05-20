@@ -1,6 +1,6 @@
 \begin{table*}[!t]
 \centering
-\caption{Per-class F1 on cross-station BS1$\rightarrow$BS2 (median over 10 seeds). Stacked ensemble closes the gap on the imbalanced minority classes.}
+\caption{Per-class F1 on cross-station BS1$\rightarrow$BS2 (median over 10 seeds). The MLP excels on the volumetric classes (Benign, UDPFlood) while the gradient-boosted trees and the stacked ensemble dominate the application-layer DoS classes.}
 \label{tab:perclass}
 \begin{tabular}{lccccccccc}
 \toprule
@@ -9,7 +9,7 @@ Model & Benign & HTTPFlood & ICMPFlood & SYNFlood & SYNScan & SlowrateDoS & TCPC
 LightGBM & 0.691 & 0.974 & 0.995 & 1.000 & 0.997 & 0.957 & 0.997 & 0.783 & 0.996 \\
 XGBoost & 0.691 & 0.976 & 0.999 & 0.975 & 0.987 & 0.959 & 0.998 & 0.782 & 0.998 \\
 MLP & 0.835 & 0.845 & 1.000 & 0.998 & 0.997 & 0.892 & 0.998 & 0.882 & 0.998 \\
-Stacked ensemble (\textbf{proposed}) & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+Stacked ensemble (\textbf{proposed}) & 0.692 & 0.975 & 0.999 & 0.999 & 0.997 & 0.957 & 0.998 & 0.782 & 0.998 \\
 \bottomrule
 \end{tabular}
 \end{table*}

@@ -53,22 +53,29 @@ The 5G access plane multiplies the attack surface of mobile networks while
 demanding sub-millisecond decision budgets at the edge. Recent deep models
 deliver state-of-the-art accuracy on the 5G-NIDD benchmark, but their
 inference cost and parameter footprint are not always compatible with
-in-line classification on a commodity CPU. We revisit this trade-off with
-a \emph{heterogeneous shallow stacked ensemble} that combines LightGBM,
-XGBoost, and a two-layer multi-layer perceptron through out-of-fold (OOF)
-cross-validated probability stacking and a logistic-regression
-meta-learner. On the 5G-NIDD multi-class task we report classification
-quality under a stratified random split and a cross-base-station split
-that stresses generalisation across two physically separated radio cells,
-and characterise the latency--accuracy frontier across batch sizes
-spanning $\{1, 16, 64, 256, 1024, 4096\}$. We find that the multi-layer
-perceptron is the strongest single base learner on the cross-station
-split, and that the stacked ensemble preserves or modestly improves on
-that ceiling while remaining tractable for CPU-only deployment in the
-user-plane function (UPF) or multi-access edge computing (MEC) tier. We
-make the artefact reviewer-runnable and release a deployment
-recommendation table that maps operating points (latency budget,
-accuracy floor) to the configuration that meets them.
+in-line classification on a commodity CPU. We benchmark four lightweight
+classifiers on a 60-core CPU host: LightGBM, XGBoost, a two-layer
+multi-layer perceptron (MLP), and a \emph{heterogeneous shallow stacked
+ensemble} that combines all three through out-of-fold (OOF) cross-validated
+probability stacking and a logistic-regression meta-learner. On the
+5G-NIDD multi-class task we report classification quality under a
+stratified random split and a cross-base-station split that stresses
+generalisation across two physically separated radio cells, and
+characterise the latency--accuracy frontier across batch sizes
+spanning $\{1, 16, 64, 256, 1024, 4096\}$. Three findings emerge.
+First, on the in-distribution random split all four models exceed
+macro-F1 of 0.998 and the stacked ensemble matches the strongest single
+base learner. Second, under cross-station shift the MLP becomes the
+strongest single classifier (macro-F1 0.940, binary-F1 0.957), while the
+stacked ensemble macro-F1 lies between the gradient-boosted trees and
+the MLP, indicating that the meta-learner inherits the trees' shared
+bias on this dataset. Third, the stacked ensemble exhibits the tightest
+inter-seed variance ($\sigma$\,=\,2$\times$10$^{-4}$ in both splits)---a
+desirable property for predictable deployment even when its mean
+macro-F1 is not the highest. We translate these findings into a
+deployment recommendation table that maps operating points (latency
+budget, accuracy floor, variance tolerance) to the configuration that
+meets them. The artefact is reviewer-runnable.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -287,15 +294,18 @@ solver. All choices are pinned in \texttt{configs/models.yaml}.
 Table~\ref{tab:main} reports macro-F1, weighted-F1, binary-F1, and the
 binary false-positive rate (FPR) across the four model variants and the
 two splits. Under the stratified random split all models exceed
-macro-F1 0.99, leaving a vanishingly small margin for further
-improvement. Under the cross-station split BS1$\rightarrow$BS2 the
-methods diverge: the MLP becomes the strongest single base learner,
-narrowing the drop between random and cross-station performance more
-than either gradient-boosted tree variant, and the stacked ensemble
-matches or exceeds the MLP while inheriting the trees' sharpness on the
-in-distribution classes. The pattern is consistent with the intuition
-that combining complementary inductive biases helps when the test
-distribution shifts.
+macro-F1 of 0.998, leaving a vanishingly small margin for further
+improvement; the stacked ensemble matches the strongest single base
+(XGBoost) at 0.999. Under the cross-station split BS1$\rightarrow$BS2
+the four methods diverge. The MLP becomes the strongest single
+classifier with macro-F1 0.940$\pm$0.013 and binary-F1 0.957$\pm$0.020,
+substantially ahead of both gradient-boosted tree variants
+(macro-F1 0.93, binary-F1 0.887). The stacked ensemble lands at
+macro-F1 0.933$\pm$0.0002 and binary-F1 0.887---between the trees and
+the MLP on the mean but with the tightest inter-seed variance by an
+order of magnitude. The logistic-regression meta-learner inherits the
+shared tree-bias on the cross-station classes and does not recover the
+MLP's transferable representation.
 
 \input{tables/tab_main.tex}
 
@@ -339,19 +349,26 @@ plateaus once vectorised kernels saturate.}
 \subsection{Per-Class Behaviour Under Cross-Station Shift}
 
 Figure~\ref{fig:per_class_xs} and Table~\ref{tab:perclass} drill into
-per-class F1 under the cross-station split. The drops concentrate on
-classes whose Argus statistics are most BS-dependent (the SYN-based
-scanning families and the slow-rate DoS). The stacked ensemble's gain
-is most visible on these minority cross-station classes, consistent
-with the theory that combining heterogeneous base models smooths errors
-that are correlated within a single hypothesis class.
+per-class F1 under the cross-station split. A clear trade-off emerges:
+the MLP excels on the volumetric majority classes (Benign 0.835 vs.\
+0.69 for the tree-based learners, UDPFlood 0.882 vs.\ 0.78) but lags on
+the application-layer DoS classes (HTTPFlood 0.845 vs.\ 0.97,
+SlowrateDoS 0.892 vs.\ 0.96). The gradient-boosted trees show the
+opposite specialisation. The stacked ensemble follows the tree majority
+on most classes because two of its three base learners are gradient-boosted
+trees with similar inductive biases, so the weighted mean
+of its component probability vectors aligns with the trees and does not
+recover the MLP's Benign-class advantage. This explains both the
+stacked ensemble's strong agreement with the trees on binary-F1 and its
+shortfall against the MLP under cross-station shift.
 
 \begin{figure}[!t]
 \centering
 \includegraphics[width=0.95\columnwidth]{figures/fig4_per_class_f1_cross_station.pdf}
 \caption{Per-class F1 (median over ten seeds) on the cross-station
-split BS1$\rightarrow$BS2. The stacked ensemble preserves accuracy on
-classes where individual base learners are sensitive to station drift.}
+split BS1$\rightarrow$BS2. The MLP outperforms the trees on the
+volumetric classes (Benign, UDPFlood), whereas the trees and the
+stacked ensemble dominate the application-layer DoS classes.}
 \label{fig:per_class_xs}
 \end{figure}
 
@@ -373,30 +390,32 @@ model and split.}
 \section{Discussion: Deployment Operating Points}
 \label{sec:discussion}
 
-The latency--accuracy frontier admits three practical operating points;
-the right configuration depends on whether the operator has a latency
-budget at single-flow scale or accepts batching:
+Reading Tables~\ref{tab:main} and~\ref{tab:latency} jointly yields a
+three-tier deployment recommendation:
 \begin{itemize}
     \item \emph{Latency-critical streaming} (single-flow inference, batch~1):
-        the MLP wins on raw constant-overhead latency---its forward
-        pass is a fixed-size dense matmul, an order of magnitude
-        cheaper per flow than the tree learners' per-sample tree
-        traversal. The stacked ensemble is impractical here because
-        its per-flow cost is the sum of all three bases.
+        the MLP is the recommended single model. Its forward pass is a
+        fixed-size dense matmul that is an order of magnitude cheaper
+        per flow than the trees, and it is also the strongest
+        cross-station classifier we measured. The stacked ensemble is
+        impractical here because its per-flow cost is the sum of all
+        three bases.
     \item \emph{Balanced MEC edge} (batch 64--1024): the MLP retains
-        the latency lead through batch~256 (single-digit microseconds
-        per flow), while the stacked ensemble pays an order of
-        magnitude more in latency. The stacked configuration is the
-        recommended choice only when the macro-F1 improvement over the
-        MLP exceeds the operator's deployment threshold, in
-        particular under cross-station shift where a few-point F1
-        gain may justify the cost.
+        both the latency lead (single-digit microseconds per flow at
+        batch~256) and the accuracy lead under cross-station shift.
+        The stacked ensemble is preferable in this regime only when
+        \emph{inter-seed reproducibility} is part of the SLO: its
+        macro-F1 standard deviation is two orders of magnitude smaller
+        than the MLP's (Table~\ref{tab:main}).
     \item \emph{Accuracy-first analytics} (large batches, $\geq 4096$):
-        LightGBM offers the lowest per-sample latency among single
-        base learners; its histogram-binned trees vectorise
-        efficiently across the batch. The stacked ensemble is still
-        within the same microsecond regime and is preferable when a
-        single deployment must remain robust across both splits.
+        LightGBM offers the lowest per-sample latency. The choice
+        between LightGBM and the stacked ensemble at large batch is
+        between a small accuracy headroom (stacked) and a 6$\times$
+        latency penalty. For deployments that prioritise binary
+        detection sensitivity under cross-station shift, the MLP
+        remains preferable despite its higher per-batch latency at
+        very large $b$, since its binary-F1 advantage (0.957 vs.\
+        0.887) translates directly into operational alert quality.
 \end{itemize}
 This three-tier mapping is the practical deliverable for operators who
 must satisfy both an accuracy floor and a latency budget; the artefact
@@ -405,14 +424,19 @@ publishes the full machine-readable mapping in
 
 \textbf{Positioning vs deep detectors.}
 Recent deep detectors on 5G-NIDD~\cite{toupas2025_deeptransids,ahmed2023_dsem,
-shi2024_5g_ddos_cnn_lstm} pursue peak accuracy; we deliberately target
-the lightweight end of the spectrum where boosted trees plus a
-two-layer MLP can be combined into a CPU-deployable stack. Direct
-numerical comparison with those models requires reproducing their
-published hyperparameters and training pipelines, which lies outside
-this paper's page budget. Our position is therefore the
-\emph{latency-accuracy frontier} rather than the peak accuracy
-leaderboard.
+shi2024_5g_ddos_cnn_lstm} pursue peak accuracy with transformer and
+deeply stacked architectures; we deliberately target the lightweight
+end of the spectrum where boosted trees and a two-layer MLP can be
+deployed on a commodity CPU. Direct numerical comparison with those
+models requires reproducing their published hyperparameters and
+training pipelines, which lies outside this paper's page budget. Our
+position is therefore an honest comparative \emph{latency-accuracy
+frontier} among practical shallow models rather than a peak-accuracy
+leaderboard. The empirical finding that the two-layer MLP outperforms
+both boosted-tree variants and the stacked ensemble on cross-station
+generalisation is consistent with the deep-learning literature's
+preference for representation-learning models when the test
+distribution differs from the training one.
 
 \section{Threats to Validity}
 \label{sec:threats}
@@ -433,19 +457,26 @@ ordinal Pareto structure is expected to persist.
 \section{Conclusion}
 \label{sec:conclusion}
 
-We presented a heterogeneous shallow stacked ensemble for AI-enabled 5G
-network intrusion detection on the 5G-NIDD benchmark. The ensemble
-combines LightGBM, XGBoost, and a two-layer MLP through leakage-free
-out-of-fold cross-validated probability stacking with a logistic-regression
-meta-learner. Across the random and cross-station splits the stack
-matches or improves the best single base learner at a latency cost that
-remains compatible with edge deployment on a commodity 60-core CPU host.
-We released the artefact---code, hyperparameters, ten project seeds,
-and the aggregation pipeline---under MIT, with a reviewer-runnable
-single command to reproduce every number and figure in this paper. Future
-work will profile inference on edge-class CPU and FPGA targets and
-extend the cross-station analysis to multi-operator captures as they
-become available.
+We presented an empirical latency--accuracy benchmark of four
+lightweight classifiers for AI-enabled 5G network intrusion detection
+on the 5G-NIDD dataset: LightGBM, XGBoost, a two-layer MLP, and a
+heterogeneous shallow stacked ensemble that combines all three through
+leakage-free out-of-fold cross-validated probability stacking with a
+logistic-regression meta-learner. The most actionable finding is that
+the MLP is the strongest single classifier under cross-station shift in
+both accuracy (macro-F1 0.940, binary-F1 0.957) and per-flow latency at
+small batch sizes, while the stacked ensemble matches the trees on the
+in-distribution random split and offers the lowest inter-seed variance
+across both splits. The contribution is therefore a calibrated mapping
+from operating constraints to model choice, rather than a claim of
+state-of-the-art accuracy. The artefact---code, hyperparameters, ten
+project seeds, and the aggregation pipeline---is released under MIT
+with a reviewer-runnable single command to reproduce every number and
+figure. Future work will profile inference on edge-class CPU and FPGA
+targets, study calibration- and confidence-weighted meta-learners that
+could recover the MLP's binary-detection edge inside a stacked
+configuration, and extend the cross-station analysis to multi-operator
+captures as they become available.
 
 \section*{Acknowledgments}
 This work was supported by the Posts and Telecommunications Institute of

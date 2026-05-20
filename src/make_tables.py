@@ -154,7 +154,8 @@ def table_per_class(metrics_dir: Path, classes: List[str], out: Path,
     lines.append(r"\begin{table*}[!t]")
     lines.append(r"\centering")
     lines.append(r"\caption{Per-class F1 on cross-station BS1$\rightarrow$BS2 (median over 10 seeds). "
-                 r"Stacked ensemble closes the gap on the imbalanced minority classes.}")
+                 r"The MLP excels on the volumetric classes (Benign, UDPFlood) while the gradient-boosted "
+                 r"trees and the stacked ensemble dominate the application-layer DoS classes.}")
     lines.append(r"\label{tab:perclass}")
     cols = "l" + "c" * len(classes)
     lines.append(rf"\begin{{tabular}}{{{cols}}}")
