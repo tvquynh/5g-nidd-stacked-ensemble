@@ -81,7 +81,7 @@ def fig_f1_bars(summary_means: pd.DataFrame, out: Path):
         rows = rows[rows["macro_f1__count"].notna()]
     splits = ["random", "cross_station"]
     models = ["lightgbm", "xgboost", "mlp", "stacked"]
-    fig, ax = plt.subplots(figsize=(3.5, 2.2))
+    fig, ax = plt.subplots(figsize=(3.5, 2.6))
     width = 0.18
     x = np.arange(len(splits))
     for i, m in enumerate(models):
@@ -100,9 +100,9 @@ def fig_f1_bars(summary_means: pd.DataFrame, out: Path):
                label=MODEL_LABEL[m])
     ax.set_xticks(x)
     ax.set_xticklabels(["Random split", "Cross-station (BS1$\\rightarrow$BS2)"])
-    ax.set_ylabel("Macro-F1")
-    ax.set_ylim(0, 1.05)
-    ax.legend(ncol=2, loc="lower center", bbox_to_anchor=(0.5, -0.45))
+    ax.set_ylabel("Macro-F1 (mean $\\pm$ 1 std, 10 seeds)")
+    ax.set_ylim(0.85, 1.02)
+    ax.legend(ncol=2, loc="upper center", bbox_to_anchor=(0.5, -0.22), fontsize=7)
     fig.tight_layout()
     fig.savefig(out, dpi=400, bbox_inches="tight")
     plt.close(fig)
@@ -113,7 +113,7 @@ def fig_pareto(summary: pd.DataFrame, latency: pd.DataFrame, out: Path,
     sub_acc = summary[(summary["split"] == split) & (~summary["smoke"].astype(bool))]
     sub_lat = latency[(latency["split"] == split) & (latency["batch_size"] == batch_size)]
 
-    fig, ax = plt.subplots(figsize=(3.5, 2.4))
+    fig, ax = plt.subplots(figsize=(3.5, 2.6))
     for m in ["lightgbm", "xgboost", "mlp", "stacked"]:
         f1_vals = sub_acc[sub_acc["model"] == m]["macro_f1"].dropna().values
         lat_vals = sub_lat[sub_lat["model"] == m]["per_sample_us"].dropna().values
@@ -125,14 +125,11 @@ def fig_pareto(summary: pd.DataFrame, latency: pd.DataFrame, out: Path,
         ax.scatter([lat], [f1], s=70, marker=marker, color=MODEL_COLOR[m],
                    edgecolor=PALETTE["headline"], linewidth=0.6,
                    label=MODEL_LABEL[m], zorder=3)
-        ax.annotate(MODEL_LABEL[m].split(" (")[0], (lat, f1),
-                    xytext=(5, 5), textcoords="offset points", fontsize=7,
-                    color=PALETTE["headline"])
     ax.set_xscale("log")
     ax.set_xlabel(f"Per-sample latency at batch={batch_size} (µs, log scale)")
     ax.set_ylabel("Macro-F1 (median, 10 seeds)")
     ax.set_ylim(0.95, 1.005)
-    ax.legend(loc="lower left", fontsize=7)
+    ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.25), ncol=2, fontsize=7)
     fig.tight_layout()
     fig.savefig(out, dpi=400, bbox_inches="tight")
     plt.close(fig)
@@ -160,7 +157,9 @@ def fig_throughput_curves(latency: pd.DataFrame, out: Path, split: str = "random
 
 def fig_per_class_f1(metrics_dir: Path, classes: List[str], out: Path,
                      split: str = "cross_station", train_bs: int = 1):
-    """For each model, take median per-class F1 across seeds. Heatmap-style bar group."""
+    """Horizontal grouped bar chart of per-class F1 (median over seeds) — legend
+    placed above the plot so it never overlaps the class names on the y-axis.
+    """
     models = ["lightgbm", "xgboost", "mlp", "stacked"]
     suffix = f"_bs{train_bs}" if split == "cross_station" else ""
     rows = []
@@ -182,21 +181,22 @@ def fig_per_class_f1(metrics_dir: Path, classes: List[str], out: Path,
     if df.empty:
         return
     pivot = df.pivot(index="class", columns="model", values="f1").reindex(classes)
-    fig, ax = plt.subplots(figsize=(3.6, 2.8))
-    x = np.arange(len(classes))
-    width = 0.20
+    fig, ax = plt.subplots(figsize=(7.1, 2.6))
+    y = np.arange(len(classes))
+    height = 0.20
     for i, m in enumerate(models):
         if m not in pivot.columns:
             continue
         vals = pivot[m].values
-        ax.bar(x + (i - 1.5) * width, vals, width=width,
-               color=MODEL_COLOR[m], edgecolor="white", linewidth=0.4,
-               label=MODEL_LABEL[m])
-    ax.set_xticks(x)
-    ax.set_xticklabels(classes, rotation=45, ha="right", fontsize=7)
-    ax.set_ylabel("Per-class F1 (median)")
-    ax.set_ylim(0, 1.05)
-    ax.legend(ncol=2, fontsize=7, loc="lower center", bbox_to_anchor=(0.5, -0.45))
+        ax.barh(y + (i - 1.5) * height, vals, height=height,
+                color=MODEL_COLOR[m], edgecolor="white", linewidth=0.4,
+                label=MODEL_LABEL[m])
+    ax.set_yticks(y)
+    ax.set_yticklabels(classes, fontsize=8)
+    ax.invert_yaxis()
+    ax.set_xlabel("Per-class F1 (median)")
+    ax.set_xlim(0.0, 1.05)
+    ax.legend(ncol=4, fontsize=7, loc="upper center", bbox_to_anchor=(0.5, 1.18))
     fig.tight_layout()
     fig.savefig(out, dpi=400, bbox_inches="tight")
     plt.close(fig)

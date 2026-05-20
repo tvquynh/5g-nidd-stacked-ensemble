@@ -48,11 +48,13 @@ def table_main(means: pd.DataFrame, out: Path):
     ]
 
     lines = []
-    lines.append(r"\begin{table}[!t]")
+    lines.append(r"\begin{table*}[!t]")
     lines.append(r"\centering")
     lines.append(r"\caption{Classification quality on the 5G-NIDD multi-class task. "
-                 r"Mean$\pm$std over the 10 seeds defined by the project convention "
-                 r"\{42, 123, 456, 789, 1011, 2026, 3141, 4242, 5555, 6789\}.}")
+                 r"Mean$\pm$std over the 10 project seeds "
+                 r"\{42, 123, 456, 789, 1011, 2026, 3141, 4242, 5555, 6789\}. "
+                 r"\emph{Binary-F1} treats the Benign class as the negative class and the eight attack families as the positive class; "
+                 r"\emph{Binary FPR} = FP / (FP + TN) under the same binary collapse.}")
     lines.append(r"\label{tab:main}")
     lines.append(r"\begin{tabular}{ll" + "c" * len(metric_cols) + r"}")
     lines.append(r"\toprule")
@@ -83,7 +85,7 @@ def table_main(means: pd.DataFrame, out: Path):
         lines.pop()
     lines.append(r"\bottomrule")
     lines.append(r"\end{tabular}")
-    lines.append(r"\end{table}")
+    lines.append(r"\end{table*}")
     out.write_text("\n".join(lines), encoding="utf-8")
     print(f"[tab] {out}")
 

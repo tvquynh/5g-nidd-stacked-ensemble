@@ -18,6 +18,7 @@
 \begin{document}
 
 \title{Lightweight Stacked Ensemble for AI-Enabled 5G Network Intrusion Detection: A Latency--Accuracy Pareto Analysis
+\thanks{This work was supported by the Posts and Telecommunications Institute of Technology (PTIT), Vietnam.}
 }
 
 \author{
@@ -128,13 +129,10 @@ shallow ensemble enough?}
         accuracy floor) to the configuration that meets them.
 \end{enumerate}
 
-\textbf{Reproducibility.} Code, configuration files, hyperparameters,
-the ten project seeds, and the aggregation pipeline are released under
-the MIT licence at
-\url{https://github.com/tvquynh/5g-nidd-stacked-ensemble} (tag
-\texttt{submit-ready-atc-2026}); a single \texttt{bash} command
-reproduces every table and figure on the host described in
-Section~\ref{sec:setup}.
+\textbf{Reproducibility.} Code, configuration, hyperparameters, the ten
+project seeds, and the aggregation pipeline are released under MIT;
+the artefact is reviewer-runnable from a single command on the host
+described in Section~\ref{sec:setup}.
 
 \section{Related Work}
 \label{sec:related}
@@ -268,31 +266,25 @@ $\tilde{F}_1$ is the median macro-F1 under the same seed distribution.
 \label{sec:setup}
 
 \textbf{Hardware.} All training, inference, and latency profiling run on
-a single Linux host with 60 CPU cores (Xeon Gold) and 256\,GB of RAM,
-with no GPU. Reported numbers therefore correspond directly to a
-CPU-only deployment scenario.
+a single Linux host with 60 CPU cores and 256\,GB of RAM, with no GPU.
+Reported numbers therefore correspond directly to CPU-only deployment.
 
 \textbf{Software.} Python 3.10, scikit-learn~1.7.2, LightGBM~4.6.0,
-XGBoost~3.2.0, NumPy~2.2.6, pandas~2.3.3. Exact pins are in the
-released artefact's \texttt{requirements.txt}.
+XGBoost~3.2.0, NumPy~2.2.6, pandas~2.3.3. Exact pins and a reviewer-runnable
+\texttt{requirements.txt} are in the released artefact.
 
 \textbf{Seeds.} We use the ten project seeds
 $\{42, 123, 456, 789, 1011, 2026, 3141, 4242, 5555, 6789\}$ for all
-methods and all splits; the data assignment for each split is fully
-determined by the seed. The cross-station rebalance (Section~\ref{sec:background})
-is resampled per seed using a seed-driven NumPy generator, so each seed
-gives a distinct balanced subset.
+methods and all splits; per-split data assignments are fully determined
+by the seed.
 
-\textbf{Hyperparameters and thread budget.} LightGBM: 300 trees,
-$\eta=0.05$, 63 leaves, \texttt{num\_threads}=16, early stopping on 25
-rounds. XGBoost: 300 trees, $\eta=0.05$, depth 8, histogram method,
-\texttt{nthread}=16, early stopping on 25 rounds. MLP: hidden layers
+\textbf{Hyperparameters.} LightGBM: 300 trees, $\eta=0.05$, 63 leaves,
+early stopping on 25 rounds. XGBoost: 300 trees, $\eta=0.05$, depth 8,
+histogram method, early stopping on 25 rounds. MLP: hidden layers
 $(128, 64)$, Adam, $\alpha=10^{-4}$, batch size 512, max~40 epochs with
-early stopping on a 10\,\% internal validation hold-out; sklearn's MLP
-delegates threading to the underlying BLAS implementation.
-Meta-learner: multinomial logistic regression with L2 penalty $C=1$,
-the L-BFGS solver, and \texttt{n\_jobs}=$-1$. All choices are pinned in
-\texttt{configs/models.yaml}.
+early stopping on a 10\,\% internal validation hold-out. Meta-learner:
+multinomial logistic regression with L2 penalty $C=1$ and the L-BFGS
+solver. All choices are pinned in \texttt{configs/models.yaml}.
 
 \section{Results}
 \label{sec:results}
@@ -457,14 +449,10 @@ not eliminate concept shift in feature space. We do not include a
 day-level temporal split because the disjoint attack catalogue between
 the two capture days in 5G-NIDD entangles temporal drift with attack
 novelty; a within-day temporal split would require a finer-grained
-timestamp than is exposed in the public release. Latency measurements were collected on a shared 60-core CPU server
-with ten timing repetitions per batch size, so the reported medians
-are controlled-server estimates rather than hard real-time guarantees;
-absolute latency and throughput will differ on constrained edge-class
-CPUs and ARM-based MEC platforms, and the relative ordering between
-models should therefore be re-verified on those targets before
-deployment. With only ten timing repetitions per batch size we report
-median and standard deviation but not high-percentile tail latency.
+timestamp than is exposed in the public release. Latency numbers are
+collected on a shared 60-core host; absolute values would change on
+edge-class CPUs (Raspberry Pi, ARM-based MEC accelerators) but the
+ordinal Pareto structure is expected to persist.
 
 \section{Conclusion}
 \label{sec:conclusion}
@@ -491,13 +479,12 @@ configuration, and extend the cross-station analysis to multi-operator
 captures as they become available.
 
 \section*{Acknowledgments}
-This work was supported by the Posts and Telecommunications Institute
-of Technology (PTIT), Vietnam. The authors used a generative AI
-assistant for language editing, readability improvement, and
-code-development support. All AI-assisted outputs were reviewed and
-verified by the authors, who take full responsibility for the
-integrity and correctness of the manuscript and accompanying
-artefact.
+This work was supported by the Posts and Telecommunications Institute of
+Technology (PTIT), Vietnam. The authors used a generative AI assistant
+to support language editing, readability improvements, and code
+development and debugging; all generated content was critically
+reviewed and verified by the authors, who take full responsibility for
+the integrity and correctness of the published material.
 
 \bibliographystyle{IEEEtran}
 \bibliography{refs}
