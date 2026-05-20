@@ -4,23 +4,24 @@ message: "If you use this software, please cite both the article and the artefac
 authors:
   - family-names: Huynh
     given-names: Trong-Thua
-    affiliation: Posts and Telecommunications Institute of Technology (PTIT), Ho Chi Minh City, Vietnam
+    affiliation: Information Security Technology Lab, Posts and Telecommunications Institute of Technology (PTIT), Vietnam
     email: thuaht@ptit.edu.vn
     orcid: "https://orcid.org/0000-0003-3934-1067"
   - family-names: Trinh
     given-names: Van-Quynh
-    affiliation: Posts and Telecommunications Institute of Technology (PTIT), Ho Chi Minh City, Vietnam
+    affiliation: Information Security Technology Lab, Posts and Telecommunications Institute of Technology (PTIT), Vietnam
     email: quynhtv@ptithcm.edu.vn
     orcid: "https://orcid.org/0009-0006-0514-6123"
   - family-names: Huynh
     given-names: De-Thu
-    affiliation: The Saigon International University, Ho Chi Minh City, Vietnam
+    affiliation: "School of Computer Science & Engineering, The Saigon International University (SIU), Vietnam"
     email: huynhdethu@siu.edu.vn
     orcid: "https://orcid.org/0000-0002-1227-0281"
   - family-names: Le
     given-names: Ngoc-Hieu
-    affiliation: Posts and Telecommunications Institute of Technology (PTIT), Ho Chi Minh City, Vietnam
+    affiliation: Information Security Technology Lab, Posts and Telecommunications Institute of Technology (PTIT), Vietnam
     email: hieuln@ptithcm.edu.vn
+    orcid: "https://orcid.org/0009-0005-4869-9003"
 type: software
 license: MIT
 repository-code: "https://github.com/tvquynh/5g-nidd-stacked-ensemble"
