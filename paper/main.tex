@@ -354,25 +354,30 @@ model and split.}
 \section{Discussion: Deployment Operating Points}
 \label{sec:discussion}
 
-The latency--accuracy frontier admits three practical operating points:
+The latency--accuracy frontier admits three practical operating points;
+the right configuration depends on whether the operator has a latency
+budget at single-flow scale or accepts batching:
 \begin{itemize}
     \item \emph{Latency-critical streaming} (single-flow inference, batch~1):
-        the MLP wins on raw constant-overhead latency, because its
-        forward pass is a fixed-size dense matmul. The accuracy floor is
-        the macro-F1 reported for the MLP in Table~\ref{tab:main}.
-    \item \emph{Balanced MEC edge} (batch 64--1024): the stacked ensemble
-        is the recommended configuration. Its absolute per-sample
-        latency at batch~256 stays inside the tens-of-microseconds
-        budget that 5G MEC slot allocators tolerate, while its macro-F1
-        is at least as high as the best single base on the random split
-        and modestly higher under cross-station shift.
+        the MLP wins on raw constant-overhead latency---its forward
+        pass is a fixed-size dense matmul, an order of magnitude
+        cheaper per flow than the tree learners' per-sample tree
+        traversal. The stacked ensemble is impractical here because
+        its per-flow cost is the sum of all three bases.
+    \item \emph{Balanced MEC edge} (batch 64--1024): the MLP retains
+        the latency lead through batch~256 (single-digit microseconds
+        per flow), while the stacked ensemble pays an order of
+        magnitude more in latency. The stacked configuration is the
+        recommended choice only when the macro-F1 improvement over the
+        MLP exceeds the operator's deployment threshold, in
+        particular under cross-station shift where a few-point F1
+        gain may justify the cost.
     \item \emph{Accuracy-first analytics} (large batches, $\geq 4096$):
-        LightGBM offers the lowest per-sample latency among single base
-        learners as the histogram-binned trees vectorise efficiently
-        across the batch; the stacked ensemble remains preferable when
-        the goal is a single deployment that performs uniformly across
-        both splits, because the marginal cost of stacking is amortised
-        over the batch.
+        LightGBM offers the lowest per-sample latency among single
+        base learners; its histogram-binned trees vectorise
+        efficiently across the batch. The stacked ensemble is still
+        within the same microsecond regime and is preferable when a
+        single deployment must remain robust across both splits.
 \end{itemize}
 This three-tier mapping is the practical deliverable for operators who
 must satisfy both an accuracy floor and a latency budget; the artefact
